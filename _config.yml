@@ -18,7 +18,7 @@ baseurl: "/fastpages" # the subpath of your site, e.g. "/blog".  WARNING: if you
 
 # Email and twitter are optional:
 email: 
-twitter_username: "fastdotai"
+twitter_username: "kenneth_wangg"
 
 # Set this to true to get LaTeX math equation support
 use_math: 
