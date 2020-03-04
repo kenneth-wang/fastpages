@@ -3,19 +3,19 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="shortcut icon" type="image/x-icon" href="/fastpages/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Smartie | Kenneth Wang</title>
+<title>Smartie - Your personalized stock watchlist | Kenneth Wang</title>
 <meta name="generator" content="Jekyll v3.8.5" />
-<meta property="og:title" content="Smartie" />
+<meta property="og:title" content="Smartie - Your personalized stock watchlist" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Creating your own slack bot that works for you!" />
-<meta property="og:description" content="Creating your own slack bot that works for you!" />
+<meta name="description" content="Let’s create your slack bot that works for you!" />
+<meta property="og:description" content="Let’s create your slack bot that works for you!" />
 <link rel="canonical" href="https://kenneth-wang.github.io/fastpages/2020/03/03/_03_01_Smartie_Slackbot.html" />
 <meta property="og:url" content="https://kenneth-wang.github.io/fastpages/2020/03/03/_03_01_Smartie_Slackbot.html" />
 <meta property="og:site_name" content="Kenneth Wang" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-03-03T00:00:00-06:00" />
 <script type="application/ld+json">
-{"description":"Creating your own slack bot that works for you!","@type":"BlogPosting","headline":"Smartie","dateModified":"2020-03-03T00:00:00-06:00","datePublished":"2020-03-03T00:00:00-06:00","url":"https://kenneth-wang.github.io/fastpages/2020/03/03/_03_01_Smartie_Slackbot.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://kenneth-wang.github.io/fastpages/2020/03/03/_03_01_Smartie_Slackbot.html"},"@context":"https://schema.org"}</script>
+{"description":"Let’s create your slack bot that works for you!","@type":"BlogPosting","headline":"Smartie - Your personalized stock watchlist","dateModified":"2020-03-03T00:00:00-06:00","datePublished":"2020-03-03T00:00:00-06:00","url":"https://kenneth-wang.github.io/fastpages/2020/03/03/_03_01_Smartie_Slackbot.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://kenneth-wang.github.io/fastpages/2020/03/03/_03_01_Smartie_Slackbot.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
   <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
@@ -74,7 +74,7 @@
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Smartie</h1><p class="page-description">Creating your own slack bot that works for you!</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-03-03T00:00:00-06:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">Smartie - Your personalized stock watchlist</h1><p class="page-description">Let&#39;s create your slack bot that works for you!</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-03-03T00:00:00-06:00" itemprop="datePublished">
         Mar 3, 2020
       </time>
        • <span class="read-time" title="Estimated read time">
@@ -120,7 +120,7 @@
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>There is an abundance of websites/news app that are offering watchlists for you to get timely information on stocks. However it may be difficult for us to find one that is customizable and able to give us more than just price movements. By the end of this post, I hope you can create your own Slack bot that gives you personalized information based on your needs. Through this article, we will be working through the steps together to create a bot that sends you a set of <strong>S&amp;P500</strong> stocks and their <strong>Relative Strength Index</strong> (RSI) on a periodic basis. You can always amend the code to send yourself other stock information that you are interested in.</p>
+<p>There is an abundance of websites/news app that are offering stock watchlists for users to get timely updates. However it may be difficult for us to find one that is customizable and able to offers data apart from price movements. By the end of this post, I hope you can create your own Slack bot that gives you personalized information based on your own needs. We will be working through the steps together to create a bot that sends you a list of <strong>S&amp;P500 stocks</strong> and their <strong>Relative Strength Index</strong> (RSI) on a periodic basis. You can always amend the code if you are interested in other stock information.</p>
 
 </div>
 </div>
@@ -143,8 +143,8 @@ With the docker image, we will build a <strong>docker container</strong> that in
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The files that we will be referring to can be found <a href="https://github.com/kenneth-wang/github/tree/master/stock_screener">here</a> and in this section, I will illustrate how the different files will fit together. Before delving into the code and to avoid any confusion, let's look at how the files are arranged.</p>
 <ul>
-<li>The <strong>sp500_stocks.csv</strong> file contains the current constituents of the popular SP500 stock index. <br /></li>
-<li><p>The classes/functions that we will be building can be found in the <strong>stock.py</strong> and <strong>app.py</strong> files. <br /></p>
+<li>The <strong>sp500_stocks.csv</strong> file contains the current constituents of the popular S&amp;P500 stock index. <br /></li>
+<li><p>The classes/functions that we will be building can be found in <strong>stock.py</strong> and <strong>app.py</strong>. <br /></p>
 </li>
 <li><p>The <strong>rest of the files</strong> will be used to build the docker image/container for us to deploy on the server.</p>
 </li>
@@ -200,7 +200,7 @@ With the docker image, we will build a <strong>docker container</strong> that in
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
-<li><strong><a href="https://www.alphavantage.co/support/#api-key">ALPHA_VANTAGE_KEY</a></strong>: We will be using <a href="https://www.alphavantage.co/">Alpha Vantage</a> to retrieve the stock prices. Ever since Yahoo decided to discontinue their finance API service,it has been difficult for many users to find a new platform to access pricing data for free. Alpha Vantage offers the data for free, however if you are looking to create a high-frequency trading bot, you will probably find yourself disappointed. There is a limit of 5 API-requests per minute and 500 API requests per day. But you can always subscribe to their paid services if you are looking to remove these limits.</li>
+<li><strong><a href="https://www.alphavantage.co/support/#api-key">ALPHA_VANTAGE_KEY</a></strong>: We will be using <a href="https://www.alphavantage.co/">Alpha Vantage</a> to retrieve the stock prices. Ever since Yahoo decided to discontinue their finance API service,it has been difficult for many users to find a new platform to access pricing data for free. Alpha Vantage offers the data for free, however if you are looking to create a high-frequency trading bot, you will probably find yourself disappointed. There is a limit of 5 API-requests per minute and 500 API requests per day. However, you can always subscribe to their paid services if you are looking to remove these limits.</li>
 </ul>
 
 </div>
@@ -249,7 +249,7 @@ With the docker image, we will build a <strong>docker container</strong> that in
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="/fastpages/images/copied_from_nb/my_icons/smartie/slack_bot_oauth_access_tokens.JPG" alt="" /></p>
+<p><img src="/fastpages/images/copied_from_nb/my_icons/smartie/slack_bot_oauth_access_token.JPG" alt="" /></p>
 
 </div>
 </div>
@@ -300,6 +300,12 @@ With the docker image, we will build a <strong>docker container</strong> that in
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Using-Google-Colab">Using Google Colab<a class="anchor-link" href="#Using-Google-Colab">&#182;</a></h1>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>If you are running the notebook using Google Colab, remember to mount the directory that you are working from.</p>
@@ -375,7 +381,7 @@ Enter your authorization code:
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Not to forget, we need to installing the dependencies...</p>
+<p>Not to forget, we need to install the dependencies...</p>
 
 </div>
 </div>
@@ -449,7 +455,7 @@ Enter your authorization code:
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>To get a list of S&amp;P500 component stocks, we will scrape a table from a wikipedia webpage. As and when you require an updated list, you can revisit this function.</p>
+<p>To get a list of S&amp;P500 component stocks, we will scrape a table from a wikipedia webpage. Whenever you require an updated list, you can revisit this function.</p>
 
 </div>
 </div>
@@ -818,9 +824,9 @@ Enter your authorization code:
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>RSI was developed as a momentum osciallator that measures the speed and change of price movements. The index mainly osciallates between 0 to 100 and a stock is considered as overbought when it is above 70 and oversold when below 30. This is a relatively simple indicator and you can always substitute RSI for other indicators.</p>
+<p>RSI was developed as a momentum oscillator that measures the speed and change of price movements. The index mainly oscillator between 0 to 100 and a stock is considered as <strong>overbought when it is above 70 and oversold when below 30</strong>. This is a relatively simple indicator and you can always substitute RSI for other indicators.</p>
 <p>Our aim with <code>get_stocks_rsi</code> is to retrieve a dataframe with stock names, their RSI readings and whether they are within the overbought (&gt;70), oversold (&lt;30), normal ranges.</p>
-<p>I have illustrated the output of this function using 10 stocks selected from a pool of companies.</p>
+<p>I have illustrated the output of this function using <strong>10 stocks</strong> selected from a pool of companies.</p>
 
 </div>
 </div>
@@ -914,6 +920,13 @@ Enter your authorization code:
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For this example, there is only one stock (AMD) that crossed the 30/70 threshold.</p>
+
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -1357,7 +1370,7 @@ Enter your authorization code:
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now that we have the stocks that we would like to focus on, it is time for us to get the historical stock price for each of them. We will use the first 10 stocks of our dataframe for illustration. As <strong>Alpha Vantage</strong> limits the number of API calls per minute (5 calls/minute), we will tell the program to sleep and retrieve the next set of stocks at intervals of 65 seconds.</p>
+<p>Now that we have the stocks that we would like to focus on, it is time for us to get the historical stock price for each of them. We will use the first 10 stocks of our dataframe for illustration. As <strong>Alpha Vantage</strong> limits the number of API calls per minute (5 calls/minute), we will tell the program to retrieve the stock information at <strong>intervals of 65 seconds</strong>.</p>
 
 </div>
 </div>
@@ -1515,7 +1528,7 @@ Enter your authorization code:
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now that we have retrieved all the information we need, let's convert it into a dataframe for better visualization</p>
+<p>Now that we have retrieved all the information we need, let's convert it into a dataframe for better visualization.</p>
 
 </div>
 </div>
@@ -1747,7 +1760,7 @@ Enter your authorization code:
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Unfortunately, as much as we want to, we are not able to send the whole dataframe we have created above as a message to our Slack channel. One workaround for this is to extract the stock tickers and RSI readings as strings before concatenating them together and send them to our Slack channel.</p>
+<p>Unfortunately, as much as we want to, we are not able to send the whole dataframe we have created above as a message to our Slack channel. One workaround is for us to first <strong>extract the stock tickers and RSI readings as strings</strong>. After that, we will <strong>concatenate</strong> the strings together before sending them to our Slack channel.</p>
 
 </div>
 </div>
@@ -1909,7 +1922,7 @@ Enter your authorization code:
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>For us to send the concatenated string to our Slack Channel, Slack requires us to format our strings in the form of a "block" that contains other required meta information. We will be using the "_get_text_block" helper to help us do just that.</p>
+<p>For us to send the concatenated string to our Slack Channel, Slack requires us to format our strings in the form of a <strong>"block"</strong> that contains other required meta information. We will be using the <code>_get_text_block</code> helper function to help us do just that.</p>
 
 </div>
 </div>
@@ -1948,7 +1961,7 @@ Enter your authorization code:
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We can then piece together our "text_block" with other user specific information to create our payload. Additional information that are required:</p>
+<p>We can then piece together our <strong>"text_block"</strong> with other user specific information to create our payload. Additional information that are required:</p>
 <ul>
 <li>channel: ID of the channel that we are sending this message to</li>
 <li>username: The name of our slackbot</li>
@@ -2446,11 +2459,9 @@ Enter your authorization code:
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
-<li><p>For our log messages to be printed out in the interactive terminal, we will need to create a softlink <code>/var/log/cron.log</code> to <code>/proc/1/fd/1</code>. This will allow standard output and error streams that are passed to the softlink <code>/var/log/cron.log</code> and be directed to <code>/proc/1/fd/1</code> which can then be viewed in the interactive terminal.</p>
-<p><code>ln -sf /proc/1/fd/1 /var/log/cron.log</code></p>
+<li><p>For our log messages to be printed out in the interactive terminal, we will need to create a softlink <code>/var/log/cron.log</code> to <code>/proc/1/fd/1</code>. This will allow standard output and error streams that are passed to the softlink <code>/var/log/cron.log</code> to be directed to <code>/proc/1/fd/1</code> which can then be viewed in the interactive terminal.</p>
 </li>
-<li><p>As we would like the app to send us updates on a periodic basis, we will have to tell the server to run our code repeatedly. To do this, we can use the Cron service which is available on our server by listing down the things we need the Cron service to work on in the <code>/etc/crontab file</code>. The "<em>"s denote the schedule that the code will run at. As an example, "0 1 </em> <em> </em>" will mean that the code will run every day at 1am. Currently I have chosen to schedule the script to run every 5 minutes for testing "5 <em> </em> <em> </em>". The picture below illustrates what each "*" represents.</p>
-<p><code>echo '5 * * * * root cd / &amp;&amp; /opt/conda/envs/stock_screener/bin/python ./app.py &gt;&gt; /var/log/cron.log' &gt; /etc/crontab</code></p>
+<li><p>As we would like the app to send us updates on a periodic basis, we will have to tell the server to run our code repeatedly. To do this, we can use the Cron service which is available on our server by listing down the things we need the Cron service to work on in the <code>/etc/crontab file</code>. <code>*</code> denotes the schedule that the code will run at. As an example, <code>0 1 * * *</code> will mean that the code will run every day at 1am. Currently, I have scheduled the script to run every 5 minutes for testing <code>*/5 * * * *</code>.</p>
 </li>
 </ul>
 
@@ -2477,7 +2488,7 @@ Enter your authorization code:
 <span class="n">service</span> <span class="n">cron</span> <span class="n">start</span>
 <span class="n">echo</span> <span class="s1">&#39;Smartie is ready for action!&#39;</span>
 <span class="n">ln</span> <span class="o">-</span><span class="n">sf</span> <span class="o">/</span><span class="n">proc</span><span class="o">/</span><span class="mi">1</span><span class="o">/</span><span class="n">fd</span><span class="o">/</span><span class="mi">1</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">log</span><span class="o">/</span><span class="n">cron</span><span class="o">.</span><span class="n">log</span>
-<span class="n">echo</span> <span class="s1">&#39;5 * * * * root cd / &amp;&amp; /opt/conda/envs/stock_screener/bin/python ./app.py &gt;&gt; /var/log/cron.log&#39;</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">crontab</span>
+<span class="n">echo</span> <span class="s1">&#39;*/5 * * * * root cd / &amp;&amp; /opt/conda/envs/stock_screener/bin/python ./app.py &gt;&gt; /var/log/cron.log&#39;</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">crontab</span>
 <span class="n">tail</span> <span class="o">-</span><span class="n">f</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">log</span><span class="o">/</span><span class="n">cron</span><span class="o">.</span><span class="n">log</span>
 </pre></div>
 
@@ -2496,7 +2507,14 @@ Enter your authorization code:
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Remember the credentials that we painstakingly created and saved in <em>credentials.py</em>? You will need to create a env.list file and copy all your credential over. Just that this time, the double quotes "" can be omitted from the env.list file. You can then save the file anywhere on your local computer but remember the path that you saved it under.</p>
+<p>Remember the credentials that we painstakingly created and saved in <strong>credentials.py</strong>? You will need to create a <strong>env.list</strong> file and copy all your credentials over. Just that this time, the double quotes "" can be omitted from the env.list file. Save the file on your local computer.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You should have something similar in <strong>env.list.</strong></p>
 
 </div>
 </div>
@@ -2508,9 +2526,7 @@ Enter your authorization code:
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># You should have something similar in env.list</span>
-
-<span class="n">SLACK_API_TOKEN</span><span class="o">=</span><span class="n">xoxp</span><span class="o">-</span><span class="mi">945736515923</span><span class="o">-</span><span class="mf">959414305302.</span><span class="o">...</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">SLACK_API_TOKEN</span><span class="o">=</span><span class="n">xoxp</span><span class="o">-</span><span class="mi">945736515923</span><span class="o">-</span><span class="mf">959414305302.</span><span class="o">...</span>
 <span class="n">CHANNEL_ID</span><span class="o">=</span><span class="n">CU</span><span class="o">...</span>
 <span class="n">SLACK_BOT_TOKEN</span><span class="o">=</span><span class="n">xoxb</span><span class="o">-</span><span class="mi">945736515923</span><span class="o">-</span><span class="mf">957048941172.</span><span class="o">....</span>
 <span class="n">SLACK_SIGNING_SECRET</span><span class="o">=</span><span class="mi">88</span><span class="n">a3424d</span><span class="o">.....</span>
@@ -2532,28 +2548,18 @@ Enter your authorization code:
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>First let's build the Docker image from the Dockerfile. You will need to run the following code on your terminal, in the same directory as the Dockerfile. Replace <strong>"kennethwang92"</strong> with your Docker ID.</p>
+<p>First let's <strong>build the Docker image</strong> from the Dockerfile. You will need to run the following code in your terminal, in the same directory as the Dockerfile. Replace <strong>"kennethwang92"</strong> with your <strong>Docker ID.</strong></p>
 
 </div>
 </div>
 </div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">docker</span> <span class="n">build</span> <span class="o">-</span><span class="n">t</span> <span class="n">kennethwang92</span><span class="o">/</span><span class="n">stock_screener</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>docker build -t kennethwang92/stock_screener</code></p>
 
 </div>
-    
-
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img src="/fastpages/images/copied_from_nb/my_icons/smartie/docker_build.JPG" alt="" /></p>
@@ -2563,28 +2569,18 @@ Enter your authorization code:
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>After building, you can tag it with a name eg. <code>latest</code> and push the image to docker hub. Replace <strong>0e5574283393</strong> with your <strong>image ID</strong>. By default your image would have been tagged with "latest", you can substitute it with another label if you prefer. In this example, let's label the image as "demo"</p>
+<p>After building, you can <strong>tag</strong> it with a name eg. <code>demo</code> and push the image to docker hub. Replace <strong>0e5574283393</strong> with your <strong>image ID</strong>. By default your image would have been tagged with "latest", you can substitute it with another label if you prefer. In this example, let's label the image as <code>demo</code>.</p>
 
 </div>
 </div>
 </div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">docker</span> <span class="n">tag</span> <span class="mf">0e5574283393</span> <span class="n">kennethwang92</span><span class="o">/</span><span class="n">stock_screener</span><span class="p">:</span><span class="n">demo</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>docker tag 0e5574283393 kennethwang92/stock_screener:demo</code></p>
 
 </div>
-    
-
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Login to docker hub</strong> on your terminal. Key in your username and password when prompted.</p>
@@ -2592,23 +2588,13 @@ Enter your authorization code:
 </div>
 </div>
 </div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">docker</span> <span class="n">login</span> <span class="n">docker</span><span class="o">.</span><span class="n">io</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>docker login docker.io</code></p>
 
 </div>
-    
-
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Push the image</strong> to docker hub.</p>
@@ -2616,23 +2602,13 @@ Enter your authorization code:
 </div>
 </div>
 </div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">docker</span> <span class="n">push</span> <span class="n">kennethwang92</span><span class="o">/</span><span class="n">stock_screener</span><span class="p">:</span><span class="n">demo</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>docker push kennethwang92/stock_screener:demo</code></p>
 
 </div>
-    
-
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img src="/fastpages/images/copied_from_nb/my_icons/smartie/docker_image_push.JPG" alt="" /></p>
@@ -2642,7 +2618,7 @@ Enter your authorization code:
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Deploying-on-a-Digital-Ocean-Server-(droplet)">Deploying on a Digital Ocean Server (droplet)<a class="anchor-link" href="#Deploying-on-a-Digital-Ocean-Server-(droplet)">&#182;</a></h1>
+<h1 id="Deploying-on-a-Digital-Ocean-server-(droplet)">Deploying on a Digital Ocean server (droplet)<a class="anchor-link" href="#Deploying-on-a-Digital-Ocean-server-(droplet)">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -2661,7 +2637,7 @@ Enter your authorization code:
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Set up an account with Digital Ocean <a href="https://www.digitalocean.com/">here</a></p>
+<p>Set up an account with Digital Ocean <a href="https://www.digitalocean.com/">here</a>.</p>
 
 </div>
 </div>
@@ -2675,7 +2651,7 @@ Enter your authorization code:
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Create a project</p>
+<p>Create a project.</p>
 
 </div>
 </div>
@@ -2689,7 +2665,7 @@ Enter your authorization code:
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Create a droplet</p>
+<p>Create a droplet.</p>
 
 </div>
 </div>
@@ -2703,7 +2679,7 @@ Enter your authorization code:
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Select ubuntu</p>
+<p>Select ubuntu.</p>
 
 </div>
 </div>
@@ -2717,7 +2693,7 @@ Enter your authorization code:
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Choose a plan</p>
+<p>Choose a plan.</p>
 
 </div>
 </div>
@@ -2731,7 +2707,7 @@ Enter your authorization code:
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Select a datacenter</p>
+<p>Select a datacenter.</p>
 
 </div>
 </div>
@@ -2745,7 +2721,7 @@ Enter your authorization code:
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Create ssh. Click on <strong>"New SSH Key"</strong> and follow the instructions</p>
+<p>Create ssh. Click on <strong>"New SSH Key"</strong> and follow the instructions.</p>
 
 </div>
 </div>
@@ -2766,7 +2742,7 @@ Enter your authorization code:
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Click on create droplet</p>
+<p>Click on create droplet.</p>
 
 </div>
 </div>
@@ -2780,7 +2756,7 @@ Enter your authorization code:
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Select droplet</p>
+<p>Select droplet.</p>
 
 </div>
 </div>
@@ -2794,7 +2770,7 @@ Enter your authorization code:
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Save the IP address as you will have to use it in a moment.</p>
+<p>Save the IP address. We will need to use it in the next section.</p>
 
 </div>
 </div>
@@ -2814,61 +2790,39 @@ Enter your authorization code:
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>First let's copy the env.list file that you saved in your local computer into the server. In this case, I have saved it in my Desktop.</p>
-
-</div>
-</div>
-</div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># copy the env.list file from your local computer into the server</span>
-
-<span class="n">scp</span> <span class="o">-</span><span class="n">r</span> <span class="o">-</span><span class="n">i</span> <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_rsa</span> <span class="o">./</span><span class="n">env</span><span class="o">.</span><span class="n">list</span> <span class="n">root</span><span class="o">@</span><span class="p">[</span><span class="n">ip</span> <span class="n">address</span><span class="p">]:</span><span class="o">~</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="/fastpages/images/copied_from_nb/my_icons/smartie/server_copied_envlist.JPG" alt="" /></p>
+<p>First let's copy the <strong>env.list</strong> file that you saved in your local computer into the server. You will have to amend <code>~/.ssh/id_rsa</code> and <code>./env.list</code> depending on where you have saved your ssh keys and env.list file. Insert the <code>[ip address]</code> that you have saved in the earlier section.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>To connect to the server, you will have to insert the ip address you have copied previously. Type "yes" if you are prompted "Are you sure you want to continue connecting"</p>
+<p><code>scp -r -i ~/.ssh/id_rsa ./env.list root@[ip address]:~</code></p>
 
 </div>
 </div>
 </div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ssh</span> <span class="o">-</span><span class="n">i</span> <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_rsa</span> <span class="n">root</span><span class="o">@</span><span class="p">[</span><span class="n">ip</span> <span class="n">address</span><span class="p">]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we will connect to the server.</p>
 
 </div>
-    
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>ssh -i ~/.ssh/id_rsa root@[ip address]</code></p>
 
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You should see on your terminal that you have connected to the server.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img src="/fastpages/images/copied_from_nb/my_icons/smartie/server_ssh_success.JPG" alt="" /></p>
@@ -2878,93 +2832,78 @@ Enter your authorization code:
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>While in the server, type the following commands</p>
+<p>While in the server, type the following commands in the following order to:</p>
 
 </div>
 </div>
 </div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># to update apt-get command-line tool for handling packages</span>
-
-<span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Update apt-get command-line tool for handling packages</li>
+</ul>
 
 </div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># install docker</span>
-
-<span class="n">apt</span> <span class="n">install</span> <span class="n">docker</span><span class="o">.</span><span class="n">io</span> 
-</pre></div>
-
-    </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><p><code>apt-get update</code></p>
+</blockquote>
 
 </div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># download image from Docker Hub</span>
-
-<span class="n">docker</span> <span class="n">pull</span> <span class="n">kennethwang92</span><span class="o">/</span><span class="n">stock_screener</span><span class="p">:</span><span class="n">demo</span>
-</pre></div>
-
-    </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Install docker</li>
+</ul>
 
 </div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># run the image with our credentials in env.list to create our docker container.</span>
-<span class="c1"># replace ~Desktop/env.list with the path leading to your env.list file.</span>
-<span class="c1"># for my case I have saved the file on my desktop.</span>
-<span class="c1"># replace &quot;kennethwang92&quot; with your Docker ID if you would like to use your own</span>
-<span class="c1"># image.</span>
-<span class="c1"># ensure that you are running this code in the same directory as the env.list</span>
-<span class="c1"># file.</span>
-
-<span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">it</span> <span class="o">--</span><span class="n">env</span><span class="o">-</span><span class="n">file</span> <span class="o">./</span><span class="n">env</span><span class="o">.</span><span class="n">list</span> <span class="n">kennethwang92</span><span class="o">/</span><span class="n">stock_screener</span><span class="p">:</span><span class="n">demo</span> <span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">bash</span>
-</pre></div>
-
-    </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><p><code>apt install docker.io</code></p>
+</blockquote>
 
 </div>
-    
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Download the image from Docker Hub</li>
+</ul>
 
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><p><code>docker pull kennethwang92/stock_screener: demo</code></p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Run the image with our credentials in <strong>env.list</strong> to create our docker container. Replace <code>./env.list</code> with the path leading to your env.list file. For my case I have saved the file on my desktop.
+Replace <strong>"kennethwang92"</strong> with your <strong>Docker ID</strong> if you would like to use your own image. Ensure that you are running this code in the same directory as the env.list file.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><p><code>docker run -it --env-file ./env.list kennethwang92/stock_screener: demo /bin/bash</code></p>
+</blockquote>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img src="/fastpages/images/copied_from_nb/my_icons/smartie/server_build_container.JPG" alt="" /></p>
@@ -2981,14 +2920,17 @@ Enter your authorization code:
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Future-improvements:">Future improvements:<a class="anchor-link" href="#Future-improvements:">&#182;</a></h1><p>Slack bots are really powerful and by connecting it with python, the possibilities are endless. These are some of the improvements I can think of at the moment:</p>
+<h1 id="Future-improvements:">Future improvements:<a class="anchor-link" href="#Future-improvements:">&#182;</a></h1><p>Slack bots are really powerful and when used with python, the possibilities are endless. These are some of the improvements I can think of at the moment:</p>
 <ul>
-<li>Instead of using  RSI,you can substitute the indicator with others that you are interested in.
-*You can even execute trades through the bot if your broker has an API that you can connect to.</li>
-<li>Send .png/.jpeg graphs instead of texts?</li>
+<li><p>Instead of using  RSI, you can use other indicators that you are interested in.</p>
+</li>
+<li><p>You can even execute trades through the bot if your broker has an API that you can connect to.</p>
+</li>
+<li><p>Send .png/.jpg graphs instead of texts.</p>
+</li>
 </ul>
 <p><br /></p>
-<p>I hope that you liked this article and you find the Slack bot useful. If you have any questions/comments please feel free to reach out to me through <a href="https://www.linkedin.com/in/kennethwangtm/">Linkedin</a> or email at ken.wangtm@gmail.com</p>
+<p>I hope you enjoyed this article and you find the Slack bot useful. If you have any questions/comments please feel free to reach out to me through <a href="https://www.linkedin.com/in/kennethwangtm/">Linkedin</a> or email at ken.wangtm@gmail.com</p>
 
 </div>
 </div>
