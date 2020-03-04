@@ -4,7 +4,7 @@ title: Kenneth Wang
 permalink: /about/
 ---
 
-![](images/profile_small.jpg)
+![](images/profile_200.jpg)
 
 AI Engineer (Apprentice) @ AI Singapore | Aspiring AI/ML Engineer 
 
