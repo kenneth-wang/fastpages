@@ -7,7 +7,7 @@ search: exclude
 ---
 
 
-![](images/mountain_grey_crop.jpg)
+![](images/mountain_grey_cropped.jpg)
 
 Credits to [fastpages](https://github.com/fastai/fastpage), for creating such a wonderful blogging platform!
 
