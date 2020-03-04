@@ -4,7 +4,7 @@ title: About me
 permalink: /about/
 ---
 
-<img align="left" src=![](images/profile_200.jpg)>
+<img align="left" src="images/profile_200.jpg">
 
 AI Engineer (Apprentice) @ AI Singapore. Aspiring AI/ML Engineer 
 
