@@ -1,13 +1,15 @@
 ---
 layout: page
-title: About Me
+title:
 permalink: /about/
 ---
 
-This is where you put the contents of your *About* page. Like all your pages, it's in [Markdown](https://guides.github.com/features/mastering-markdown/) format.
+![](images/profile.jpg)
 
-This website is powered by **[fastpages](https://github.com/fastai/fastpages)** [^1].
+I am a graduate of NUS Business School and consider myself as an outgoing and highly driven individual with a strong emphasis on teamwork.
 
+Currently working on pre-built AI solutions ("Bricks") for AI Makerspace, a national platform offered by AI Singapore to help SMEs and Start-ups accelerate the adoption of AI in Singapore. Active contributor to the development of information retrieval engine and auto labeling bricks.
 
+I have a strong interest in Natural Language Processing and am currently seeking opportunities to be at the intersection of Finance and AI.
 
-[^1]:a blogging platform that natively supports Jupyter notebooks in addition to other formats.
+Looking forward to connecting with like-minded individuals and learn something new every day! 
