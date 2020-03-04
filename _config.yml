@@ -6,8 +6,8 @@
 # https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
 # https://learnxinyminutes.com/docs/yaml/
 
-title: fastpages
-description: An easy to use blogging platform with support for Jupyter Notebooks.
+title: Kenneth Wang
+description: AI/ML Engineer (Apprentice) at AI Singapore.
 github_username: kenneth-wang
 # you can comment the below line out if your repo name is not different than your baseurl
 github_repo: "fastpages"
@@ -17,7 +17,7 @@ url: "https://kenneth-wang.github.io" # the base hostname & protocol for your si
 baseurl: "/fastpages" # the subpath of your site, e.g. "/blog".  WARNING: if you are not using a custom domain, the baseurl *must* be set to your repo name.
 
 # Email and twitter are optional:
-email: 
+email: ken.wangtm@gmail.com
 twitter_username: "kenneth_wangg"
 
 # Set this to true to get LaTeX math equation support
