@@ -4,7 +4,7 @@ title: About me
 permalink: /about/
 ---
 
-![](images/beach_200.jpg)
+![](images/beach_200.png)
 
 
 AI Engineer (Apprentice) @ AI Singapore. Aspiring AI/ML Engineer 
