@@ -4,7 +4,7 @@ title:
 permalink: /about/
 ---
 
-![](images/profile.jpg)
+![](images/profile_small.jpg)
 
 I am a graduate of NUS Business School and consider myself as an outgoing and highly driven individual with a strong emphasis on teamwork.
 
