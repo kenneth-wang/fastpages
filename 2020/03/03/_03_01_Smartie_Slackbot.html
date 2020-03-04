@@ -1,0 +1,3029 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="shortcut icon" type="image/x-icon" href="/fastpages/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Smartie | fastpages</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Smartie" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Creating your own slack bot that works for you!" />
+<meta property="og:description" content="Creating your own slack bot that works for you!" />
+<link rel="canonical" href="https://kenneth-wang.github.io/fastpages/2020/03/03/_03_01_Smartie_Slackbot.html" />
+<meta property="og:url" content="https://kenneth-wang.github.io/fastpages/2020/03/03/_03_01_Smartie_Slackbot.html" />
+<meta property="og:site_name" content="fastpages" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-03-03T00:00:00-06:00" />
+<script type="application/ld+json">
+{"mainEntityOfPage":{"@type":"WebPage","@id":"https://kenneth-wang.github.io/fastpages/2020/03/03/_03_01_Smartie_Slackbot.html"},"description":"Creating your own slack bot that works for you!","@type":"BlogPosting","url":"https://kenneth-wang.github.io/fastpages/2020/03/03/_03_01_Smartie_Slackbot.html","headline":"Smartie","dateModified":"2020-03-03T00:00:00-06:00","datePublished":"2020-03-03T00:00:00-06:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/fastpages/assets/main.css">
+  <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://kenneth-wang.github.io/fastpages/feed.xml" title="fastpages" />
+
+  <script>
+  function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+  }
+  window.onload = wrap_img;
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function(){
+      // add link icon to anchor tags
+      var elem = document.querySelectorAll(".anchor-link")
+      elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+      // remove paragraph tags in rendered toc (happens from notebooks)
+      var toctags = document.querySelectorAll(".toc-entry")
+      toctags.forEach(e => (e.firstElementChild.innerText = e.firstElementChild.innerText.replace('¶', '')))
+    });
+  </script>
+</head><body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/fastpages/">fastpages</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/fastpages/about/">About Me</a><a class="page-link" href="/fastpages/search/">Search</a><a class="page-link" href="/fastpages/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Smartie</h1><p class="page-description">Creating your own slack bot that works for you!</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-03-03T00:00:00-06:00" itemprop="datePublished">
+        Mar 3, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      26 min read
+    
+</span></p>
+
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+<a href="https://github.com/kenneth-wang/fastpages/tree/master/_notebooks/2020_03_01_Smartie_Slackbot.ipynb" role="button">
+    <img class="notebook-badge-image" src="https://img.shields.io/static/v1?label=&message=View%20On%20GitHub&color=586069&logo=github&labelColor=2f363d">
+</a>
+</div><div class="px-2">
+    <a href="https://colab.research.google.com/github/kenneth-wang/fastpages/blob/master/_notebooks/2020_03_01_Smartie_Slackbot.ipynb">
+        <img class="notebook-badge-image" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020_03_01_Smartie_Slackbot.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>There is an abundance of websites/news app that are offering watchlists for you to get timely information on stocks. However it may be difficult for us to find one that is customizable and able to give us more than just price movements. By the end of this post, I hope you can create your own Slack bot that gives you personalized information based on your needs. Through this article, we will be working through the steps together to create a bot that sends you a set of <strong>S&amp;P500</strong> stocks and their <strong>Relative Strength Index</strong> (RSI) on a periodic basis. You can always amend the code to send yourself other stock information that you are interested in.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In terms of deployment, the app with all of its dependencies will be packaged into a <strong>docker image</strong> and be pushed to <strong>Docker Hub</strong>, a service provided by Docker to share container images. 
+With the docker image, we will build a <strong>docker container</strong> that includes everything we need to run the app on a server. For this example, I will be using <strong>Digital Ocean</strong> to host the app. Ok let's get started!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Project-directory-structure">Project directory structure<a class="anchor-link" href="#Project-directory-structure">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The files that we will be referring to can be found <a href="https://github.com/kenneth-wang/github/tree/master/stock_screener">here</a> and in this section, I will illustrate how the different files will fit together. Before delving into the code and to avoid any confusion, let's look at how the files are arranged.</p>
+<ul>
+<li>The <strong>sp500_stocks.csv</strong> file contains the current constituents of the popular SP500 stock index. <br /></li>
+<li><p>The classes/functions that we will be building can be found in the <strong>stock.py</strong> and <strong>app.py</strong> files. <br /></p>
+</li>
+<li><p>The <strong>rest of the files</strong> will be used to build the docker image/container for us to deploy on the server.</p>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">smartie</span><span class="o">/</span>
+
+<span class="n">_______</span> <span class="n">data</span><span class="o">/</span>
+<span class="n">___________</span> <span class="n">sp500_stocks</span><span class="o">.</span><span class="n">csv</span>
+
+<span class="n">_______</span> <span class="n">src</span><span class="o">/</span>
+<span class="n">___________</span> <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
+<span class="n">___________</span> <span class="n">stock</span><span class="o">.</span><span class="n">py</span>
+
+<span class="n">_______</span> <span class="n">app</span><span class="o">.</span><span class="n">py</span>
+<span class="n">_______</span> <span class="n">conda</span><span class="o">.</span><span class="n">yml</span>
+<span class="n">_______</span> <span class="n">Dockerfile</span>
+<span class="n">_______</span> <span class="n">credentials</span><span class="o">.</span><span class="n">py</span> <span class="c1"># To be created by user</span>
+<span class="n">_______</span> <span class="n">env</span><span class="o">.</span><span class="n">list</span> <span class="c1"># To be created by user</span>
+<span class="n">_______</span> <span class="n">run</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Generating-the-credentials-we-need">Generating the credentials we need<a class="anchor-link" href="#Generating-the-credentials-we-need">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Before we are able to send any stock related information to a Slack channel, we will need to retrieve some credentials/IDs from <strong>Alpha Vantage</strong> and <strong>Slack</strong>. We will store them in a <strong>credentials.py</strong> file to be used with this notebook. Click on the links below to setup the credentials.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><strong><a href="https://www.alphavantage.co/support/#api-key">ALPHA_VANTAGE_KEY</a></strong>: We will be using <a href="https://www.alphavantage.co/">Alpha Vantage</a> to retrieve the stock prices. Ever since Yahoo decided to discontinue their finance API service,it has been difficult for many users to find a new platform to access pricing data for free. Alpha Vantage offers the data for free, however if you are looking to create a high-frequency trading bot, you will probably find yourself disappointed. There is a limit of 5 API-requests per minute and 500 API requests per day. But you can always subscribe to their paid services if you are looking to remove these limits.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><strong><a href="https://api.slack.com/authentication/basics">API token</a></strong>: This is required to use Slack's API service for your selected Development Slack Workspace (channel). Follow the instructions in the link to obtain an access key.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/fastpages/images/copied_from_nb/my_icons/smartie/slack_access_token.JPG" alt="" /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><strong><a href="https://www.wikihow.com/Find-a-Channel-ID-on-Slack-on-PC-or-Mac">Channel ID</a></strong>: This is required to access the channel you have attached your app to.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/fastpages/images/copied_from_nb/my_icons/smartie/slack_channel_ids.JPG" alt="" /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><strong><a href="">Slack Bot Token</a></strong>: Credentials required to use the bot associated with your channel</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/fastpages/images/copied_from_nb/my_icons/smartie/slack_bot_oauth_access_tokens.JPG" alt="" /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><strong>Slack Signing Secret</strong>: A unique string that Slack shares with us. When sending a request, the signing secret is combined with the body using a HMAC-SHA256 keyed hash. The resulting signature is unique and is used by Slack to verify that the request is actually sent by you. This can be found under "Basic Information" on the side bar of the Slack API webpage</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/fastpages/images/copied_from_nb/my_icons/smartie/slack_basic_info.JPG" alt="" /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/fastpages/images/copied_from_nb/my_icons/smartie/slack_signing_secret.JPG" alt="" /></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># You should have something similar in credential.py</span>
+
+<span class="n">SLACK_API_TOKEN</span><span class="o">=</span><span class="s2">&quot;xoxp-945736515923-959414305302....&quot;</span>
+<span class="n">CHANNEL_ID</span><span class="o">=</span><span class="s2">&quot;CU...&quot;</span>
+<span class="n">SLACK_BOT_TOKEN</span><span class="o">=</span><span class="s2">&quot;xoxb-945736515923-957048941172.....&quot;</span>
+<span class="n">SLACK_SIGNING_SECRET</span><span class="o">=</span><span class="s2">&quot;88a3424d.....&quot;</span>
+<span class="n">ALPHA_VANTAGE_KEY</span><span class="o">=</span><span class="s2">&quot;E1UR....&quot;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If you are running the notebook using Google Colab, remember to mount the directory that you are working from.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%capture</span>
+
+<span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">drive</span>
+<span class="n">drive</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">&#39;/content/gdrive/&#39;</span><span class="p">)</span>
+
+<span class="o">%</span><span class="n">cd</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">gdrive</span><span class="o">/</span><span class="n">My</span> <span class="n">Drive</span><span class="o">/</span><span class="n">Colab</span> <span class="n">Notebooks</span><span class="o">/</span><span class="n">ssh_files</span><span class="o">/</span><span class="n">smartie_slackbot</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Go to this URL in a browser: https://accounts.google.com/o/oauth2/auth?client_id=947318989803-6bn6qk8qdgf4n4g3pfee6491hc0brc4i.apps.googleusercontent.com&amp;redirect_uri=urn%3aietf%3awg%3aoauth%3a2.0%3aoob&amp;response_type=code&amp;scope=email%20https%3a%2f%2fwww.googleapis.com%2fauth%2fdocs.test%20https%3a%2f%2fwww.googleapis.com%2fauth%2fdrive%20https%3a%2f%2fwww.googleapis.com%2fauth%2fdrive.photos.readonly%20https%3a%2f%2fwww.googleapis.com%2fauth%2fpeopleapi.readonly
+
+Enter your authorization code:
+··········
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">credentials</span> <span class="kn">import</span> <span class="n">SLACK_API_TOKEN</span><span class="p">,</span> <span class="n">CHANNEL_ID</span><span class="p">,</span> <span class="n">SLACK_BOT_TOKEN</span><span class="p">,</span> \
+                        <span class="n">SLACK_SIGNING_SECRET</span><span class="p">,</span> <span class="n">ALPHA_VANTAGE_KEY</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Requirements">Requirements<a class="anchor-link" href="#Requirements">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Not to forget, we need to installing the dependencies...</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%capture</span>
+
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">alpha</span><span class="o">-</span><span class="n">vantage</span><span class="o">==</span><span class="mf">2.1</span><span class="o">.</span><span class="mi">3</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">beautiful</span> <span class="n">soup4</span><span class="o">==</span><span class="mf">4.8</span><span class="o">.</span><span class="mi">2</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">slack</span><span class="o">==</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">2</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">slackclient</span><span class="o">==</span><span class="mf">2.5</span><span class="o">.</span><span class="mi">0</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">slackeventsapi</span><span class="o">==</span><span class="mf">2.1</span><span class="o">.</span><span class="mi">0</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">websocket</span><span class="o">-</span><span class="n">client</span><span class="o">==</span><span class="mf">0.57</span><span class="o">.</span><span class="mi">0</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>... and import the python packages that we will be using</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">slack</span>
+<span class="kn">import</span> <span class="nn">ssl</span> <span class="k">as</span> <span class="nn">ssl_lib</span>
+<span class="kn">import</span> <span class="nn">certifi</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">from</span> <span class="nn">alpha_vantage.timeseries</span> <span class="kn">import</span> <span class="n">TimeSeries</span>
+<span class="kn">from</span> <span class="nn">pandas.tseries.holiday</span> <span class="kn">import</span> <span class="n">USFederalHolidayCalendar</span> <span class="k">as</span> <span class="n">calendar</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+<span class="kn">from</span> <span class="nn">slackeventsapi</span> <span class="kn">import</span> <span class="n">SlackEventAdapter</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Retrieving-the-S&amp;P500-component-stocks-from-wikipedia">Retrieving the S&amp;P500 component stocks from wikipedia<a class="anchor-link" href="#Retrieving-the-S&amp;P500-component-stocks-from-wikipedia">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To get a list of S&amp;P500 component stocks, we will scrape a table from a wikipedia webpage. As and when you require an updated list, you can revisit this function.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_sp500_stocks_wiki</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Scapes a wikipedia web page to retrieve a table of S&amp;P500 component stocks.</span>
+<span class="sd">    Use this function if you require an updated table.</span>
+
+<span class="sd">    args:</span>
+<span class="sd">    ------</span>
+<span class="sd">        url: (str) url leading to the wikipedia web page</span>
+<span class="sd">    Return:</span>
+<span class="sd">    ------</span>
+<span class="sd">        df: (pd.DataFrame) a copy of the wikipedia table  </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">website_url</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">website_url</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;lxml&#39;</span><span class="p">)</span>
+    <span class="n">my_table</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;table&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;wikitable sortable&#39;</span><span class="p">})</span>
+    <span class="n">my_table</span>
+
+    <span class="n">table_rows</span> <span class="o">=</span> <span class="n">my_table</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;tr&#39;</span><span class="p">)</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">table_rows</span><span class="p">:</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">t</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">row</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;td&#39;</span><span class="p">)])</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Ticker&#39;</span><span class="p">,</span> <span class="s1">&#39;Security&#39;</span><span class="p">,</span> <span class="s1">&#39;SEC_Filings&#39;</span><span class="p">,</span>
+                                         <span class="s1">&#39;GICS&#39;</span><span class="p">,</span> <span class="s1">&#39;GICS_Sub&#39;</span><span class="p">,</span> <span class="s1">&#39;HQ&#39;</span><span class="p">,</span>
+                                         <span class="s1">&#39;Date_First_Added&#39;</span><span class="p">,</span> <span class="s1">&#39;CIK&#39;</span><span class="p">,</span> <span class="s1">&#39;Founded&#39;</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Although we have scrapped the whole table, we are mainly interested in the tickers, security name and GICS classification.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp500_stocks_df</span> <span class="o">=</span> <span class="n">get_sp500_stocks_wiki</span><span class="p">(</span><span class="s2">&quot;https://en.wikipedia.org/wiki/List_of_S%26P_500_companies&quot;</span><span class="p">)</span>
+
+<span class="n">sp500_stocks_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./data/sp500_stocks.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">sp500_stocks_df</span><span class="p">[[</span><span class="s1">&#39;Ticker&#39;</span><span class="p">,</span> <span class="s1">&#39;Security&#39;</span><span class="p">,</span> <span class="s1">&#39;GICS&#39;</span> <span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Ticker</th>
+      <th>Security</th>
+      <th>GICS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>MMM</td>
+      <td>3M Company</td>
+      <td>Industrials</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ABT</td>
+      <td>Abbott Laboratories</td>
+      <td>Health Care</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ABBV</td>
+      <td>AbbVie Inc.</td>
+      <td>Health Care</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>ABMD</td>
+      <td>ABIOMED Inc</td>
+      <td>Health Care</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ACN</td>
+      <td>Accenture plc</td>
+      <td>Information Technology</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Let's-start-coding-our-Slack-bot!">Let's start coding our Slack bot!<a class="anchor-link" href="#Let's-start-coding-our-Slack-bot!">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I have named my Slack bot as Smartie, and I have a created a class with a similar name. The class serves three main purposes:</p>
+<ul>
+<li><p>To retrieve the RSI of the stocks that we are interested in <code>get_stocks_rsi</code>.</p>
+</li>
+<li><p>To convert the RSI readings into strings that can be read as texts on the Slack app <code>get_rsi_string</code>.</p>
+</li>
+<li><p>To package the strings above in Slack compatible blocks and send them to our Slack channel with the relevant meta information <code>get_message_payload_stock</code>, <code>get_message_payload</code>.</p>
+</li>
+</ul>
+<p>Fret not, if the class looks overwhelming! We will go through each of the methods so that you are able amend this class for your own use case.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Smartie</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Slack app that sends stock analysis results for the day.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channel</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">=</span> <span class="n">channel</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="s2">&quot;smartie&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reaction_task_completed</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pin_task_completed</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">DIVIDER_BLOCK</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;divider&quot;</span><span class="p">}</span>
+
+
+    <span class="k">def</span> <span class="nf">get_stocks_rsi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rsi_n</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">stocks_n</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                       <span class="n">file_path</span><span class="o">=</span><span class="s1">&#39;./data/sp500_stocks.csv&#39;</span><span class="p">,</span>
+                       <span class="n">ind_excld</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Health Care&#39;</span><span class="p">,</span> <span class="s1">&#39;Utilities&#39;</span><span class="p">,</span> <span class="s1">&#39;Energy&#39;</span><span class="p">]):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculates the Relative Strength Index (RSI) for a group of stocks</span>
+
+<span class="sd">        args:</span>
+<span class="sd">        ------</span>
+<span class="sd">            rsi_n: (list) size of rsi look-back period</span>
+<span class="sd">            stocks_n: (int) number of stocks to retrieve the rsi for</span>
+<span class="sd">            file_path (str): path leading to csv file of S&amp;P500 component </span>
+<span class="sd">                              stocks</span>
+<span class="sd">            ind_excld: (list) GICS Sector industries to be excluded</span>
+<span class="sd">        Return:</span>
+<span class="sd">        ------</span>
+<span class="sd">            df_rsi: (pd.DataFrame) returns the rsi reading for the list of</span>
+<span class="sd">                      stocks and whether the 30/70 levels have been breached</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">sp500_stocks_df</span> <span class="o">=</span> <span class="n">get_sp500_stocks_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">)</span>
+
+        <span class="n">sp500_stocks_df_excld</span> <span class="o">=</span> <span class="n">filter_stocks_industry</span><span class="p">(</span><span class="n">sp500_stocks_df</span><span class="p">,</span>
+                                                       <span class="n">ind_excld</span><span class="o">=</span><span class="n">ind_excld</span><span class="p">)</span>
+
+        <span class="n">sp500_stocks_df_excld</span> <span class="o">=</span> <span class="n">sp500_stocks_df_excld</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">stocks_n</span><span class="p">)</span>
+
+        <span class="n">info</span><span class="p">,</span> <span class="n">symbols</span> <span class="o">=</span> <span class="n">get_stock_price</span><span class="p">(</span><span class="n">sp500_stocks_df_excld</span><span class="p">)</span>
+
+        <span class="n">sp500_stocks_price_df</span> <span class="o">=</span> <span class="n">get_stock_price_df</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">symbols</span><span class="p">)</span>
+
+        <span class="n">symbols</span> <span class="o">=</span> <span class="n">sp500_stocks_price_df</span><span class="p">[</span><span class="s1">&#39;Symbol&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+
+        <span class="n">rsi_l</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">status_l</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">symbols</span><span class="p">:</span>
+            <span class="n">s_df</span> <span class="o">=</span> <span class="n">sp500_stocks_price_df</span><span class="p">[</span><span class="n">sp500_stocks_price_df</span><span class="p">[</span><span class="s1">&#39;Symbol&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">s</span><span class="p">]</span>
+            <span class="n">closep</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">s_df</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+            <span class="n">closep</span> <span class="o">=</span> <span class="n">closep</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+            <span class="n">rsi</span> <span class="o">=</span> <span class="n">get_rsi</span><span class="p">(</span><span class="n">closep</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">rsi_n</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">rsi</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span><span class="mi">70</span><span class="p">:</span>
+                <span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;Above 70&#39;</span>
+            <span class="k">elif</span> <span class="n">rsi</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">30</span><span class="p">:</span>
+                <span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;Below 30&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;Normal&#39;</span>
+
+            <span class="n">rsi_l</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">rsi</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="n">status_l</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">status</span><span class="p">)</span>
+
+        <span class="n">df_rsi</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">symbols</span><span class="p">,</span> <span class="n">rsi_l</span><span class="p">,</span> <span class="n">status_l</span><span class="p">),</span>
+                              <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Symbols&#39;</span><span class="p">,</span> <span class="s1">&#39;RSI&#39;</span><span class="p">,</span> <span class="s1">&#39;Status&#39;</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">df_rsi</span>
+
+
+    <span class="k">def</span> <span class="nf">get_rsi_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df_rsi</span><span class="p">,</span> <span class="n">head_n</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">tail_n</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts the RSI readings into strings to be displayed in Slack</span>
+
+<span class="sd">        args:</span>
+<span class="sd">        ------</span>
+<span class="sd">            df_rsi: (pd.DataFrame) the rsi readings for a list of </span>
+<span class="sd">                    stocks and whether the 30/70 levels have been breached</span>
+<span class="sd">            head_n: (int) number of top ranked stocks (based on rsi) reading</span>
+<span class="sd">                    to be displayed in Slack</span>
+<span class="sd">            tail_n: (int) number of bottom ranked stocks (based on rsi) reading </span>
+<span class="sd">                    to be displayed in Slack</span>
+<span class="sd">        Return:</span>
+<span class="sd">        ------</span>
+<span class="sd">            top_str: (str) concatenated string for top ranked stocks&#39; rsi</span>
+<span class="sd">                      reading</span>
+<span class="sd">            btm_str: (str) concatenated string for bottom ranked stocks&#39; rsi</span>
+<span class="sd">                      reading</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">df_rsi</span> <span class="o">=</span> <span class="n">df_rsi</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;RSI&#39;</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="n">df_top</span> <span class="o">=</span> <span class="n">df_rsi</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">head_n</span><span class="p">)</span>
+        <span class="n">df_btm</span> <span class="o">=</span> <span class="n">df_rsi</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="n">tail_n</span><span class="p">)</span>
+
+        <span class="n">top_symbols</span> <span class="o">=</span> <span class="n">df_top</span><span class="p">[</span><span class="s1">&#39;Symbols&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="n">btm_symbols</span> <span class="o">=</span> <span class="n">df_btm</span><span class="p">[</span><span class="s1">&#39;Symbols&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+        <span class="n">top_rsi</span> <span class="o">=</span> <span class="n">df_top</span><span class="p">[</span><span class="s1">&#39;RSI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="n">btm_rsi</span> <span class="o">=</span> <span class="n">df_btm</span><span class="p">[</span><span class="s1">&#39;RSI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+        <span class="n">top_l</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">top_symbols</span><span class="p">,</span> <span class="n">top_rsi</span><span class="p">))</span>
+        <span class="n">btm_l</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">btm_symbols</span><span class="p">,</span> <span class="n">btm_rsi</span><span class="p">))</span>
+
+        <span class="n">top_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">top_l</span><span class="p">:</span>
+            <span class="n">top_str</span> <span class="o">=</span> <span class="n">top_str</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">el</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">el</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+        <span class="n">btm_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">btm_l</span><span class="p">:</span>
+            <span class="n">btm_str</span> <span class="o">=</span> <span class="n">btm_str</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">el</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">el</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+        <span class="k">return</span> <span class="n">top_str</span><span class="p">,</span> <span class="n">btm_str</span>
+
+
+    <span class="k">def</span> <span class="nf">_get_text_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Helper function for get_message_payload_stock method.</span>
+<span class="sd">        Used to convert a string into a slack formatted text block.</span>
+
+<span class="sd">        args:</span>
+<span class="sd">        ------</span>
+<span class="sd">            string: (str) concatenated string for the top or bottom ranked</span>
+<span class="sd">                    stocks&#39; rsi reading</span>
+<span class="sd">        Return:</span>
+<span class="sd">        ------</span>
+<span class="sd">            dictionary containing the correctly formatted text block to be </span>
+<span class="sd">            displayed in slack</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;section&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;mrkdwn&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">string</span><span class="p">}}</span>
+
+
+    <span class="k">def</span> <span class="nf">get_message_payload_stock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">top_str</span><span class="p">,</span> <span class="n">btm_str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Used to create a message payload to send stock rsi readings</span>
+
+<span class="sd">        args:</span>
+<span class="sd">        ------</span>
+<span class="sd">            top_str: (str) concatenated string for the top ranked stocks&#39;</span>
+<span class="sd">                      rsi readings</span>
+<span class="sd">            bottom_str: (str) concatenated string for the bottom ranked</span>
+<span class="sd">                        stocks&#39; rsi readings</span>
+<span class="sd">        Return:</span>
+<span class="sd">        ------</span>
+<span class="sd">            dictionary containing payload (stock rsi readings) to be sent</span>
+<span class="sd">            using Slack&#39;s API</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;channel&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="p">,</span>
+            <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">,</span>
+            <span class="s2">&quot;blocks&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_get_text_block</span><span class="p">(</span><span class="n">top_str</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">DIVIDER_BLOCK</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_get_text_block</span><span class="p">(</span><span class="n">btm_str</span><span class="p">)</span>
+            <span class="p">],</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">get_message_payload</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Used to create a message payload to send simple text messages</span>
+
+<span class="sd">        args:</span>
+<span class="sd">        ------</span>
+<span class="sd">            string: (str) string to be sent using Slack&#39;s API</span>
+<span class="sd">        Return:</span>
+<span class="sd">        ------</span>
+<span class="sd">            dictionary containing payload (simple text messages) to be sent</span>
+<span class="sd">            using Slack&#39;s API.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;channel&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="p">,</span>
+            <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">,</span>
+            <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">string</span>
+        <span class="p">}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Retrieving-the-RSI-readings---Overbought-or-Oversold?">Retrieving the RSI readings - Overbought or Oversold?<a class="anchor-link" href="#Retrieving-the-RSI-readings---Overbought-or-Oversold?">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>RSI was developed as a momentum osciallator that measures the speed and change of price movements. The index mainly osciallates between 0 to 100 and a stock is considered as overbought when it is above 70 and oversold when below 30. This is a relatively simple indicator and you can always substitute RSI for other indicators.</p>
+<p>Our aim with <code>get_stocks_rsi</code> is to retrieve a dataframe with stock names, their RSI readings and whether they are within the overbought (&gt;70), oversold (&lt;30), normal ranges.</p>
+<p>I have illustrated the output of this function using 10 stocks selected from a pool of companies.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">src.stock</span> <span class="kn">import</span> <span class="n">get_sp500_stocks_wiki</span><span class="p">,</span> <span class="n">get_sp500_stocks_file</span><span class="p">,</span> \
+                      <span class="n">filter_stocks_industry</span><span class="p">,</span> <span class="n">get_stock_price</span><span class="p">,</span> \
+                      <span class="n">get_stock_price_df</span><span class="p">,</span> <span class="n">get_rsi</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_stocks_rsi</span><span class="p">(</span><span class="n">rsi_n</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">stocks_n</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="s1">&#39;./data/sp500_stocks.csv&#39;</span><span class="p">,</span> 
+                   <span class="n">ind_excld</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Health Care&#39;</span><span class="p">,</span> <span class="s1">&#39;Utilities&#39;</span><span class="p">,</span> <span class="s1">&#39;Energy&#39;</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the Relative Strength Index (RSI) for a group of stocks</span>
+
+<span class="sd">    args:</span>
+<span class="sd">    ------</span>
+<span class="sd">        rsi_n: (list) size of rsi look-back period</span>
+<span class="sd">        stocks_n: (int) number of stocks to retrieve the rsi for</span>
+<span class="sd">        file_path (str): path leading to csv file of S&amp;P500 component </span>
+<span class="sd">                          stocks</span>
+<span class="sd">        ind_excld: (list) GICS Sector industries to be excluded</span>
+<span class="sd">    Return:</span>
+<span class="sd">    ------</span>
+<span class="sd">        df_rsi: (pd.DataFrame) returns the rsi reading for the list of</span>
+<span class="sd">                  stocks and whether the 30/70 level has been breached</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">sp500_stocks_df</span> <span class="o">=</span> <span class="n">get_sp500_stocks_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">)</span>
+
+    <span class="n">sp500_stocks_df_excld</span> <span class="o">=</span> <span class="n">filter_stocks_industry</span><span class="p">(</span><span class="n">sp500_stocks_df</span><span class="p">,</span>
+                                                    <span class="n">ind_excld</span><span class="o">=</span><span class="n">ind_excld</span><span class="p">)</span>
+    
+    <span class="n">sp500_stocks_df_excld</span> <span class="o">=</span> <span class="n">sp500_stocks_df_excld</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">stocks_n</span><span class="p">)</span>
+
+    <span class="n">info</span><span class="p">,</span> <span class="n">symbols</span> <span class="o">=</span> <span class="n">get_stock_price</span><span class="p">(</span><span class="n">sp500_stocks_df_excld</span><span class="p">)</span>
+
+    <span class="n">sp500_stocks_price_df</span> <span class="o">=</span> <span class="n">get_stock_price_df</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">symbols</span><span class="p">)</span>
+
+    <span class="n">symbols</span> <span class="o">=</span> <span class="n">sp500_stocks_price_df</span><span class="p">[</span><span class="s1">&#39;Symbol&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+
+    <span class="n">rsi_l</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">status_l</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">symbols</span><span class="p">:</span>
+        <span class="n">s_df</span> <span class="o">=</span> <span class="n">sp500_stocks_price_df</span><span class="p">[</span><span class="n">sp500_stocks_price_df</span><span class="p">[</span><span class="s1">&#39;Symbol&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">s</span><span class="p">]</span>
+        <span class="n">closep</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">s_df</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+        <span class="n">closep</span> <span class="o">=</span> <span class="n">closep</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+        <span class="n">rsi</span> <span class="o">=</span> <span class="n">get_rsi</span><span class="p">(</span><span class="n">closep</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">rsi_n</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">rsi</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span><span class="mi">70</span><span class="p">:</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;Above 70&#39;</span>
+        <span class="k">elif</span> <span class="n">rsi</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">30</span><span class="p">:</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;Below 30&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;Normal&#39;</span>
+
+        <span class="n">rsi_l</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">rsi</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">status_l</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">status</span><span class="p">)</span>
+
+    <span class="n">df_rsi</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">symbols</span><span class="p">,</span> <span class="n">rsi_l</span><span class="p">,</span> <span class="n">status_l</span><span class="p">),</span>
+                          <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Symbols&#39;</span><span class="p">,</span> <span class="s1">&#39;RSI&#39;</span><span class="p">,</span> <span class="s1">&#39;Status&#39;</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">df_rsi</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_rsi</span> <span class="o">=</span>  <span class="n">get_stocks_rsi</span><span class="p">(</span><span class="n">rsi_n</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">stocks_n</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                         <span class="n">file_path</span><span class="o">=</span><span class="s1">&#39;./data/sp500_stocks.csv&#39;</span><span class="p">,</span>
+                         <span class="n">ind_excld</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Health Care&#39;</span><span class="p">,</span> <span class="s1">&#39;Utilities&#39;</span><span class="p">,</span> <span class="s1">&#39;Energy&#39;</span><span class="p">])</span>
+
+<span class="n">df_rsi</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Symbols</th>
+      <th>RSI</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>MMM</td>
+      <td>49.6</td>
+      <td>Normal</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ACN</td>
+      <td>53.1</td>
+      <td>Normal</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ATVI</td>
+      <td>66.0</td>
+      <td>Normal</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>ADBE</td>
+      <td>39.4</td>
+      <td>Normal</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>AMD</td>
+      <td>29.1</td>
+      <td>Below 30</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>AAP</td>
+      <td>44.5</td>
+      <td>Normal</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>AFL</td>
+      <td>35.0</td>
+      <td>Normal</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>APD</td>
+      <td>42.2</td>
+      <td>Normal</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>AKAM</td>
+      <td>67.4</td>
+      <td>Normal</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>ALK</td>
+      <td>42.9</td>
+      <td>Normal</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's breakdown the <code>get_stocks_rsi</code>. First we retrieve a dataframe of the S&amp;P500 component stocks. Thankfully we have already saved it in a csv file earlier and all we need to do is to read the file.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_sp500_stocks_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads a csv file containing the wikipedia S&amp;P500 component stocks table</span>
+
+<span class="sd">    args:</span>
+<span class="sd">    ------</span>
+<span class="sd">        file_path: (str) path leading to the csv file</span>
+<span class="sd">    Return:</span>
+<span class="sd">    ------</span>
+<span class="sd">        df: (pd.DataFrame) a copy of the wikipedia table</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp500_stocks_df</span> <span class="o">=</span> <span class="n">get_sp500_stocks_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s2">&quot;./data/sp500_stocks.csv&quot;</span><span class="p">)</span>
+<span class="n">sp500_stocks_df</span><span class="p">[[</span><span class="s1">&#39;Ticker&#39;</span><span class="p">,</span> <span class="s1">&#39;Security&#39;</span><span class="p">,</span> <span class="s1">&#39;GICS&#39;</span> <span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Ticker</th>
+      <th>Security</th>
+      <th>GICS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>MMM</td>
+      <td>3M Company</td>
+      <td>Industrials</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ABT</td>
+      <td>Abbott Laboratories</td>
+      <td>Health Care</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ABBV</td>
+      <td>AbbVie Inc.</td>
+      <td>Health Care</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>ABMD</td>
+      <td>ABIOMED Inc</td>
+      <td>Health Care</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ACN</td>
+      <td>Accenture plc</td>
+      <td>Information Technology</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>ATVI</td>
+      <td>Activision Blizzard</td>
+      <td>Communication Services</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>ADBE</td>
+      <td>Adobe Inc.</td>
+      <td>Information Technology</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>AMD</td>
+      <td>Advanced Micro Devices Inc</td>
+      <td>Information Technology</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>AAP</td>
+      <td>Advance Auto Parts</td>
+      <td>Consumer Discretionary</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>AES</td>
+      <td>AES Corp</td>
+      <td>Utilities</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You can exclude any industries that you are not interested in. In this scenario, I have excluded companies from the Health Care, Utilities and Energy industries.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">filter_stocks_industry</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">ind_excld</span><span class="o">=</span><span class="p">[]):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Filters a dataframe based on the GICS industries</span>
+
+<span class="sd">    args:</span>
+<span class="sd">    ------</span>
+<span class="sd">        df: (pd.DataFrame) a copy of the wikipedia table</span>
+<span class="sd">        ind_excld: (list) GICS industries to be excluded</span>
+<span class="sd">    Return:</span>
+<span class="sd">    ------</span>
+<span class="sd">        df_excld: (pd.DataFrame) filtered dataframe</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">df_excld</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;GICS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">ind_excld</span><span class="p">)]</span>
+
+    <span class="k">return</span> <span class="n">df_excld</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp500_stocks_df_excld</span> <span class="o">=</span> <span class="n">filter_stocks_industry</span><span class="p">(</span><span class="n">sp500_stocks_df</span><span class="p">,</span>
+                                               <span class="n">ind_excld</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Health Care&#39;</span><span class="p">,</span>
+                                                          <span class="s1">&#39;Utilities&#39;</span><span class="p">,</span>
+                                                          <span class="s1">&#39;Energy&#39;</span><span class="p">])</span>
+
+<span class="n">sp500_stocks_df_excld</span><span class="p">[[</span><span class="s1">&#39;Ticker&#39;</span><span class="p">,</span> <span class="s1">&#39;Security&#39;</span><span class="p">,</span> <span class="s1">&#39;GICS&#39;</span> <span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Ticker</th>
+      <th>Security</th>
+      <th>GICS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>MMM</td>
+      <td>3M Company</td>
+      <td>Industrials</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ACN</td>
+      <td>Accenture plc</td>
+      <td>Information Technology</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>ATVI</td>
+      <td>Activision Blizzard</td>
+      <td>Communication Services</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>ADBE</td>
+      <td>Adobe Inc.</td>
+      <td>Information Technology</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>AMD</td>
+      <td>Advanced Micro Devices Inc</td>
+      <td>Information Technology</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>AAP</td>
+      <td>Advance Auto Parts</td>
+      <td>Consumer Discretionary</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>AFL</td>
+      <td>AFLAC Inc</td>
+      <td>Financials</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>APD</td>
+      <td>Air Products &amp; Chemicals Inc</td>
+      <td>Materials</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>AKAM</td>
+      <td>Akamai Technologies Inc</td>
+      <td>Information Technology</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>ALK</td>
+      <td>Alaska Air Group Inc</td>
+      <td>Industrials</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now that we have the stocks that we would like to focus on, it is time for us to get the historical stock price for each of them. We will use the first 10 stocks of our dataframe for illustration. As <strong>Alpha Vantage</strong> limits the number of API calls per minute (5 calls/minute), we will tell the program to sleep and retrieve the next set of stocks at intervals of 65 seconds.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_stock_price</span><span class="p">(</span><span class="n">df_excld</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Retrieves the daily stock price from a dataframe of stocks and their</span>
+<span class="sd">    respective tickers</span>
+
+<span class="sd">    args:</span>
+<span class="sd">    ------</span>
+<span class="sd">        df_excld: (pd.DataFrame) filtered dataframe of stocks containing only</span>
+<span class="sd">                  stocks from selected industries</span>
+<span class="sd">    Return:</span>
+<span class="sd">    ------</span>
+<span class="sd">        info: (list) a complete history of stocks&#39; pricing/volume information </span>
+<span class="sd">        symbols: (list) stock tickers</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">ts</span> <span class="o">=</span> <span class="n">TimeSeries</span><span class="p">(</span><span class="n">ALPHA_VANTAGE_KEY</span><span class="p">)</span>
+
+    <span class="n">info</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">symbols</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">df_excld</span><span class="p">[</span><span class="s1">&#39;Ticker&#39;</span><span class="p">]:</span>
+
+        <span class="k">if</span> <span class="n">counter</span> <span class="o">%</span> <span class="mi">5</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">65</span><span class="p">)</span>
+
+        <span class="n">i</span><span class="p">,</span> <span class="n">m</span>  <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">get_daily</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">outputsize</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">)</span>
+        <span class="n">info</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">symbols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;2. Symbol&#39;</span><span class="p">])</span>
+        <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">info</span><span class="p">,</span> <span class="n">symbols</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp500_stocks_df_excld</span> <span class="o">=</span> <span class="n">sp500_stocks_df_excld</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">info</span><span class="p">,</span> <span class="n">symbols</span> <span class="o">=</span> <span class="n">get_stock_price</span><span class="p">(</span><span class="n">sp500_stocks_df_excld</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We have managed to obtain the price and volume information for our stocks. Let's zoom in and look at MMM's (first ticker) pricing and volume information.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;2020-02-28&#39;</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;1. open&#39;: &#39;154.0900&#39;,
+ &#39;2. high&#39;: &#39;156.7200&#39;,
+ &#39;3. low&#39;: &#39;146.0000&#39;,
+ &#39;4. close&#39;: &#39;149.2400&#39;,
+ &#39;5. volume&#39;: &#39;11498521&#39;}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And these are the stocks that we have extracted the information for.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">symbols</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&#39;MMM&#39;, &#39;ACN&#39;, &#39;ATVI&#39;, &#39;ADBE&#39;, &#39;AMD&#39;, &#39;AAP&#39;, &#39;AFL&#39;, &#39;APD&#39;, &#39;AKAM&#39;, &#39;ALK&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now that we have retrieved all the information we need, let's convert it into a dataframe for better visualization</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_stock_price_df</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">symbols</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts pricing/volume information and the stocks symbols into</span>
+<span class="sd">    a dataframe</span>
+
+<span class="sd">    args:</span>
+<span class="sd">    ------</span>
+<span class="sd">        info: (list) a complete history of stocks&#39; pricing/volume information </span>
+<span class="sd">        symbols: (list) stock tickers</span>
+<span class="sd">    Return:</span>
+<span class="sd">    ------</span>
+<span class="sd">        df_full: (pd.DataFrame) consists of stock tickers their pricing/volume</span>
+<span class="sd">                 information</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">df_l</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">num</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">info</span><span class="p">):</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Symbol&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">[</span><span class="n">num</span><span class="p">]</span>
+        <span class="n">df_l</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+    <span class="n">df_full</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">df_l</span><span class="p">)</span>
+    <span class="n">df_full</span> <span class="o">=</span> <span class="n">df_full</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;1. open&#39;</span><span class="p">:</span> <span class="s1">&#39;Open&#39;</span><span class="p">,</span>
+                                      <span class="s1">&#39;2. high&#39;</span><span class="p">:</span> <span class="s1">&#39;High&#39;</span><span class="p">,</span>
+                                      <span class="s1">&#39;3. low&#39;</span><span class="p">:</span> <span class="s1">&#39;Low&#39;</span><span class="p">,</span>
+                                      <span class="s1">&#39;4. close&#39;</span><span class="p">:</span> <span class="s1">&#39;Close&#39;</span><span class="p">,</span>
+                                      <span class="s1">&#39;5. volume&#39;</span><span class="p">:</span> <span class="s1">&#39;Volume&#39;</span><span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">df_full</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp500_stocks_price_df</span> <span class="o">=</span> <span class="n">get_stock_price_df</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">symbols</span><span class="p">)</span>
+<span class="n">sp500_stocks_price_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Open</th>
+      <th>High</th>
+      <th>Low</th>
+      <th>Close</th>
+      <th>Volume</th>
+      <th>Symbol</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2020-03-03</th>
+      <td>152.4400</td>
+      <td>154.0000</td>
+      <td>144.4400</td>
+      <td>145.2400</td>
+      <td>8253737</td>
+      <td>MMM</td>
+    </tr>
+    <tr>
+      <th>2020-03-02</th>
+      <td>151.3400</td>
+      <td>153.4300</td>
+      <td>148.3700</td>
+      <td>153.0200</td>
+      <td>8021045</td>
+      <td>MMM</td>
+    </tr>
+    <tr>
+      <th>2020-02-28</th>
+      <td>154.0900</td>
+      <td>156.7200</td>
+      <td>146.0000</td>
+      <td>149.2400</td>
+      <td>11498521</td>
+      <td>MMM</td>
+    </tr>
+    <tr>
+      <th>2020-02-27</th>
+      <td>151.2300</td>
+      <td>155.4300</td>
+      <td>149.0000</td>
+      <td>150.1600</td>
+      <td>8217960</td>
+      <td>MMM</td>
+    </tr>
+    <tr>
+      <th>2020-02-26</th>
+      <td>149.5700</td>
+      <td>151.8200</td>
+      <td>148.0900</td>
+      <td>148.9600</td>
+      <td>5151670</td>
+      <td>MMM</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Finally, we can feed the stock prices into <code>get_rsi</code> to obtain the RSI readings.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_rsi</span><span class="p">(</span><span class="n">prices</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">14</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the Relative Strength Index (RSI) for a stock</span>
+<span class="sd">    Credits: sentdex - https://www.youtube.com/watch?v=4gGztYfp3ck</span>
+
+<span class="sd">    args:</span>
+<span class="sd">    ------</span>
+<span class="sd">        prices: (list) prices for a stock</span>
+<span class="sd">        n: (int) size of RSI look-back period</span>
+<span class="sd">    Return:</span>
+<span class="sd">    ------</span>
+<span class="sd">        rsi: (float): momentum indicator that measures the magnitude of recent</span>
+<span class="sd">                      price changes to evaluate overbought or oversold </span>
+<span class="sd">                      conditions</span>
+
+<span class="sd">        https://www.investopedia.com/terms/r/rsi.asp</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">deltas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
+    <span class="n">seed</span> <span class="o">=</span> <span class="n">deltas</span><span class="p">[:</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">up</span> <span class="o">=</span> <span class="n">seed</span><span class="p">[</span><span class="n">seed</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="n">n</span>
+    <span class="n">down</span> <span class="o">=</span> <span class="o">-</span><span class="n">seed</span><span class="p">[</span><span class="n">seed</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="n">n</span>
+    <span class="n">rs</span> <span class="o">=</span> <span class="n">up</span><span class="o">/</span><span class="n">down</span>
+    <span class="n">rsi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
+    <span class="n">rsi</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="mf">100.</span> <span class="o">-</span> <span class="mf">100.</span><span class="o">/</span><span class="p">(</span><span class="mf">1.</span> <span class="o">+</span> <span class="n">rs</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">prices</span><span class="p">)):</span>
+        <span class="n">delta</span> <span class="o">=</span> <span class="n">deltas</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">delta</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">upval</span> <span class="o">=</span> <span class="n">delta</span>
+            <span class="n">downval</span> <span class="o">=</span> <span class="mf">0.</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">upval</span> <span class="o">=</span> <span class="mf">0.</span>
+            <span class="n">downval</span> <span class="o">=</span> <span class="o">-</span><span class="n">delta</span>
+
+        <span class="n">up</span> <span class="o">=</span> <span class="p">(</span><span class="n">up</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">upval</span><span class="p">)</span><span class="o">/</span><span class="n">n</span>
+        <span class="n">down</span> <span class="o">=</span> <span class="p">(</span><span class="n">down</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">downval</span><span class="p">)</span><span class="o">/</span><span class="n">n</span>
+
+        <span class="n">rs</span> <span class="o">=</span> <span class="n">up</span><span class="o">/</span><span class="n">down</span>
+        <span class="n">rsi</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">100.</span> <span class="o">-</span> <span class="mf">100.</span><span class="o">/</span><span class="p">(</span><span class="mf">1.</span><span class="o">+</span><span class="n">rs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">rsi</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Converting-our-RSI-readings-from-a-dataframe-to-concatenated-strings">Converting our RSI readings from a dataframe to concatenated strings<a class="anchor-link" href="#Converting-our-RSI-readings-from-a-dataframe-to-concatenated-strings">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Unfortunately, as much as we want to, we are not able to send the whole dataframe we have created above as a message to our Slack channel. One workaround for this is to extract the stock tickers and RSI readings as strings before concatenating them together and send them to our Slack channel.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> <span class="k">def</span> <span class="nf">get_rsi_string</span><span class="p">(</span><span class="n">df_rsi</span><span class="p">,</span> <span class="n">head_n</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">tail_n</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts the RSI readings into strings to be displayed in Slack</span>
+
+<span class="sd">    args:</span>
+<span class="sd">    ------</span>
+<span class="sd">        df_rsi: (pd.DataFrame) the rsi readings for a list of </span>
+<span class="sd">                stocks and whether the 30/70 levels have been breached</span>
+<span class="sd">        head_n: (int) number of top ranked stocks (based on rsi) reading</span>
+<span class="sd">                to be displayed in Slack</span>
+<span class="sd">        tail_n: (int) number of bottom ranked stocks (based on rsi) reading </span>
+<span class="sd">                to be displayed in Slack</span>
+<span class="sd">    Return:</span>
+<span class="sd">    ------</span>
+<span class="sd">        top_str: (str) concatenated string for top ranked stocks&#39; rsi</span>
+<span class="sd">                  reading</span>
+<span class="sd">        btm_str: (str) concatenated string for bottom ranked stocks&#39; rsi</span>
+<span class="sd">                  reading</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">df_rsi</span> <span class="o">=</span> <span class="n">df_rsi</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;RSI&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">df_top</span> <span class="o">=</span> <span class="n">df_rsi</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">head_n</span><span class="p">)</span>
+    <span class="n">df_btm</span> <span class="o">=</span> <span class="n">df_rsi</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="n">tail_n</span><span class="p">)</span>
+
+    <span class="n">top_symbols</span> <span class="o">=</span> <span class="n">df_top</span><span class="p">[</span><span class="s1">&#39;Symbols&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">btm_symbols</span> <span class="o">=</span> <span class="n">df_btm</span><span class="p">[</span><span class="s1">&#39;Symbols&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+    <span class="n">top_rsi</span> <span class="o">=</span> <span class="n">df_top</span><span class="p">[</span><span class="s1">&#39;RSI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">btm_rsi</span> <span class="o">=</span> <span class="n">df_btm</span><span class="p">[</span><span class="s1">&#39;RSI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+    <span class="n">top_l</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">top_symbols</span><span class="p">,</span> <span class="n">top_rsi</span><span class="p">))</span>
+    <span class="n">btm_l</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">btm_symbols</span><span class="p">,</span> <span class="n">btm_rsi</span><span class="p">))</span>
+
+    <span class="n">top_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">top_l</span><span class="p">:</span>
+        <span class="n">top_str</span> <span class="o">=</span> <span class="n">top_str</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">el</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">el</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+    <span class="n">btm_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">btm_l</span><span class="p">:</span>
+        <span class="n">btm_str</span> <span class="o">=</span> <span class="n">btm_str</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">el</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">el</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+    <span class="k">return</span> <span class="n">top_str</span><span class="p">,</span> <span class="n">btm_str</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">top_str</span><span class="p">,</span> <span class="n">btm_str</span> <span class="o">=</span> <span class="n">get_rsi_string</span><span class="p">(</span><span class="n">df_rsi</span><span class="p">,</span> <span class="n">head_n</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">tail_n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This is the concatenated string for the top 5/ bottom 5 ranked stocks (based on RSI readings). The escape sequence "\n" will help to display each stock on a new line when viewed on the Slack channel.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">top_str</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;AKAM 67.4\nATVI 66.0\nACN 53.1\nMMM 49.6\nAAP 44.5\n&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">btm_str</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;ALK 42.9\nAPD 42.2\nADBE 39.4\nAFL 35.0\nAMD 29.1\n&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="We're-almost-there!-Let's-integrate-our-code-with-Slack's-API">We're almost there! Let's integrate our code with Slack's API<a class="anchor-link" href="#We're-almost-there!-Let's-integrate-our-code-with-Slack's-API">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For us to send the concatenated string to our Slack Channel, Slack requires us to format our strings in the form of a "block" that contains other required meta information. We will be using the "_get_text_block" helper to help us do just that.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">_get_text_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Helper function for get_message_payload_stock.</span>
+<span class="sd">    Used to convert a string into a slack formatted text block.</span>
+
+<span class="sd">    args:</span>
+<span class="sd">    ------</span>
+<span class="sd">        string: (str) concatenated string for the top or bottom ranked </span>
+<span class="sd">                stocks&#39; rsi reading</span>
+<span class="sd">    Return:</span>
+<span class="sd">    ------</span>
+<span class="sd">        dictionary containing the correctly formatted text block to be</span>
+<span class="sd">        displayed in slack</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;section&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;mrkdwn&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">string</span><span class="p">}}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can then piece together our "text_block" with other user specific information to create our payload. Additional information that are required:</p>
+<ul>
+<li>channel: ID of the channel that we are sending this message to</li>
+<li>username: The name of our slackbot</li>
+</ul>
+<p>We will use the following two methods to send two types of payload:</p>
+<ul>
+<li><code>get_message_payload_stock</code>: used to send our RSI readings to the Slack channel. This payload includes a divider block that separates the top and bottom ranked RSI readings.</li>
+<li><code>get_message_paylaod</code>: used to send simple texts.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_message_payload_stock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">top_str</span><span class="p">,</span> <span class="n">btm_str</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Used to create a message payload to send stock rsi readings</span>
+
+<span class="sd">    args:</span>
+<span class="sd">    ------</span>
+<span class="sd">        top_str: (str) concatenated string for the top ranked stocks&#39;</span>
+<span class="sd">                  rsi readings</span>
+<span class="sd">        bottom_str: (str) concatenated string for the bottom ranked stocks&#39;</span>
+<span class="sd">                    rsi readings</span>
+<span class="sd">    Return:</span>
+<span class="sd">    ------</span>
+<span class="sd">        dictionary containing payload (stock rsi readings) to be sent using</span>
+<span class="sd">        Slack&#39;s API</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;channel&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="p">,</span>
+        <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">,</span>
+        <span class="s2">&quot;blocks&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_get_text_block</span><span class="p">(</span><span class="n">top_str</span><span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">DIVIDER_BLOCK</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_get_text_block</span><span class="p">(</span><span class="n">btm_str</span><span class="p">)</span>
+        <span class="p">],</span>
+    <span class="p">}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_message_payload</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Used to create a message payload to send simple text messages</span>
+
+<span class="sd">    args:</span>
+<span class="sd">    ------</span>
+<span class="sd">        string: (str) string to be sent using Slack&#39;s API</span>
+<span class="sd">    Return:</span>
+<span class="sd">    ------</span>
+<span class="sd">        dictionary containing payload (simple text messages) to be sent</span>
+<span class="sd">        using Slack&#39;s API</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;channel&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="p">,</span>
+        <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">,</span>
+        <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">string</span>
+    <span class="p">}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Wait-a-minute...">Wait a minute...<a class="anchor-link" href="#Wait-a-minute...">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Before I demonstrate how we can use the methods to send our payloads to Slack, I would like to introduce <code>get_fed_holidays</code> which will help us retrieve the days that the US market is closed. When the market is closed, we are not able to retrieve new stock information, hence there is no need for us to retrieve new RSI readings. During periods like this, we can give our bot a break and instead notify us with a message <strong>'Market closed, US Federal holiday'</strong>.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_fed_holidays</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Retrieve a dataframe outlining the days that the US market is closed</span>
+
+<span class="sd">    args:</span>
+<span class="sd">    ------</span>
+<span class="sd">        start_date: (str) start date for the period in focus</span>
+<span class="sd">        end_date: (str) end date for the period in focus</span>
+<span class="sd">    Return:</span>
+<span class="sd">    ------</span>
+<span class="sd">        df_holiday: (pd.DataFrame) returns the days that are US market holidays</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">dr</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">end_date</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dr</span>
+
+    <span class="n">cal</span> <span class="o">=</span> <span class="n">calendar</span><span class="p">()</span>
+    <span class="n">holidays</span> <span class="o">=</span> <span class="n">cal</span><span class="o">.</span><span class="n">holidays</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">dr</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">end</span><span class="o">=</span><span class="n">dr</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Holiday&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">holidays</span><span class="p">)</span>
+    <span class="n">df_holiday</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Holiday&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">df_holiday</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Ok now let us see how we can send simple text messages and our RSI readings sent to Slack. Let's first instantiate the class with our <strong>channel ID</strong></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">Smartie</span><span class="p">(</span><span class="n">CHANNEL_ID</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If it is a US Federal holiday, the following payload will be sent to the Slack channel....</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">message</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">get_message_payload</span><span class="p">(</span><span class="s1">&#39;Market closed, US Federal holiday&#39;</span><span class="p">)</span>
+<span class="n">message</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;channel&#39;: &#39;CU560GVCG&#39;,
+ &#39;text&#39;: &#39;Market closed, US Federal holiday&#39;,
+ &#39;username&#39;: &#39;smartie&#39;}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>...else we will send the RSI readings.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">message</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">get_message_payload_stock</span><span class="p">(</span><span class="n">top_str</span><span class="p">,</span> <span class="n">btm_str</span><span class="p">)</span>
+<span class="n">message</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;blocks&#39;: [{&#39;text&#39;: {&#39;text&#39;: &#39;AKAM 67.4\nATVI 66.0\nACN 53.1\nMMM 49.6\nAAP 44.5\n&#39;,
+    &#39;type&#39;: &#39;mrkdwn&#39;},
+   &#39;type&#39;: &#39;section&#39;},
+  {&#39;type&#39;: &#39;divider&#39;},
+  {&#39;text&#39;: {&#39;text&#39;: &#39;ALK 42.9\nAPD 42.2\nADBE 39.4\nAFL 35.0\nAMD 29.1\n&#39;,
+    &#39;type&#39;: &#39;mrkdwn&#39;},
+   &#39;type&#39;: &#39;section&#39;}],
+ &#39;channel&#39;: &#39;CU560GVCG&#39;,
+ &#39;username&#39;: &#39;smartie&#39;}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Sending-our-first-message!">Sending our first message!<a class="anchor-link" href="#Sending-our-first-message!">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's put everything we have worked on so far and see how the messages looks like on our Slack channel!</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">slack</span>
+
+<span class="n">slack_web_client</span> <span class="o">=</span> <span class="n">slack</span><span class="o">.</span><span class="n">WebClient</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">SLACK_BOT_TOKEN</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">response</span> <span class="o">=</span> <span class="n">slack_web_client</span><span class="o">.</span><span class="n">chat_postMessage</span><span class="p">(</span><span class="o">**</span><span class="n">message</span><span class="p">)</span>
+<span class="n">response</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;slack.web.slack_response.SlackResponse at 0x7f70e6eb45c0&gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">Smartie</span><span class="p">(</span><span class="n">CHANNEL_ID</span><span class="p">)</span>
+
+<span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Getting fed holidays&#39;</span><span class="p">)</span>
+<span class="n">range_start_date</span> <span class="o">=</span> <span class="s1">&#39;2020-01-01&#39;</span>
+<span class="n">range_end_date</span> <span class="o">=</span> <span class="s1">&#39;2020-12-31&#39;</span>
+<span class="n">fed_holiday</span> <span class="o">=</span> <span class="n">get_fed_holidays</span><span class="p">(</span><span class="n">start_date</span><span class="o">=</span><span class="n">range_start_date</span><span class="p">,</span>
+                               <span class="n">end_date</span><span class="o">=</span><span class="n">range_end_date</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">())</span> <span class="ow">in</span> <span class="n">fed_holiday</span><span class="p">:</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;It is a Holiday&#39;</span><span class="p">)</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">get_message_payload</span><span class="p">(</span><span class="s1">&#39;Market closed, US Federal holiday&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;It is not a Holiday&#39;</span><span class="p">)</span>
+    <span class="n">df_rsi</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">get_stocks_rsi</span><span class="p">(</span><span class="n">rsi_n</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">stocks_n</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">top_str</span><span class="p">,</span> <span class="n">btm_str</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">get_rsi_string</span><span class="p">(</span><span class="n">df_rsi</span><span class="p">,</span> <span class="n">head_n</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">tail_n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">get_message_payload_stock</span><span class="p">(</span><span class="n">top_str</span><span class="p">,</span> <span class="n">btm_str</span><span class="p">)</span>
+
+<span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Posting on Slack&#39;</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">slack_web_client</span><span class="o">.</span><span class="n">chat_postMessage</span><span class="p">(</span><span class="o">**</span><span class="n">message</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Great! You should have received a message like the one below in your channel (that is if isn't a US Federal holiday).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/fastpages/images/copied_from_nb/my_icons/smartie/demo.gif" alt="" /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Deployment">Deployment<a class="anchor-link" href="#Deployment">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Dockerfile">Dockerfile<a class="anchor-link" href="#Dockerfile">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The Dockerfile outlines a set of instructions/commands needed to build a docker image. This can include simple commands such as <code>COPY</code> which adds files from a source on your computer into the Docker image. We will use the Miniconda base image which comes with Python.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># our base image</span>
+<span class="n">FROM</span> <span class="n">continuumio</span><span class="o">/</span><span class="n">miniconda3</span>
+
+<span class="c1"># update essential packages</span>
+<span class="n">RUN</span> <span class="n">apt</span> <span class="n">update</span> <span class="o">&amp;&amp;</span> \
+    <span class="n">apt</span> <span class="o">-</span><span class="n">y</span> <span class="n">install</span> <span class="n">bzip2</span> <span class="n">curl</span> <span class="n">gcc</span> <span class="n">ssh</span> <span class="n">rsync</span> <span class="n">git</span> <span class="n">vim</span> <span class="n">cron</span> <span class="o">&amp;&amp;</span> \
+    <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">clean</span>
+
+<span class="c1"># creating our conda environment</span>
+<span class="n">ARG</span> <span class="n">CONDA_ENV_FILE</span>
+<span class="n">ARG</span> <span class="n">CONDA_PATH</span><span class="o">=</span><span class="s2">&quot;/root/miniconda3/bin&quot;</span>
+<span class="n">ARG</span> <span class="n">CONDA_BIN</span><span class="o">=</span><span class="s2">&quot;$CONDA_PATH/conda&quot;</span>
+<span class="n">COPY</span> <span class="err">$</span><span class="n">CONDA_ENV_FILE</span> <span class="err">$</span><span class="n">CONDA_ENV_FILE</span>
+
+<span class="n">ENV</span> <span class="n">SHELL</span> <span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">bash</span>
+<span class="n">RUN</span> <span class="n">conda</span> <span class="n">install</span> <span class="n">nb_conda</span>
+<span class="n">ENV</span> <span class="n">PATH</span> <span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">stock_screener</span><span class="o">/</span><span class="nb">bin</span><span class="p">:</span><span class="err">$</span><span class="n">CONDA_PATH</span><span class="p">:</span><span class="err">$</span><span class="n">PATH</span>
+
+<span class="c1"># update the environment</span>
+<span class="n">COPY</span> <span class="n">conda</span><span class="o">.</span><span class="n">yml</span> <span class="o">.</span>
+<span class="n">RUN</span> <span class="n">conda</span> <span class="n">env</span> <span class="n">update</span> <span class="o">-</span><span class="n">n</span> <span class="n">stock_screener</span> <span class="o">--</span><span class="n">file</span> <span class="o">./</span><span class="n">conda</span><span class="o">.</span><span class="n">yml</span>
+
+<span class="c1"># adding our environment variables for Cron job to work</span>
+<span class="n">RUN</span> <span class="n">printenv</span> <span class="o">&gt;&gt;</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">environment</span>
+
+<span class="c1"># allow log messages to be printed in interactive terminal</span>
+<span class="n">ENV</span> <span class="n">PYTHONUNBUFFERED</span> <span class="mi">1</span>
+
+<span class="c1"># run shell script</span>
+<span class="n">RUN</span> <span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="o">./</span><span class="n">run</span><span class="o">.</span><span class="n">sh</span>
+<span class="n">ENTRYPOINT</span> <span class="p">[</span><span class="s2">&quot;./run.sh&quot;</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Conda.yml">Conda.yml<a class="anchor-link" href="#Conda.yml">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The conda.yml file will be used to upgrade the python version and install any package dependencies that we need in our conda environment.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">channels</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">defaults</span>
+<span class="n">dependencies</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.6</span><span class="o">.</span><span class="mi">7</span>
+  <span class="o">-</span> <span class="n">pip</span><span class="o">=</span><span class="mf">19.0</span><span class="o">.</span><span class="mi">3</span>
+  <span class="o">-</span> <span class="n">nb_conda</span>
+  <span class="o">-</span> <span class="n">pip</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">alpha</span><span class="o">-</span><span class="n">vantage</span><span class="o">==</span><span class="mf">2.1</span><span class="o">.</span><span class="mi">3</span>
+    <span class="o">-</span> <span class="n">beautifulsoup4</span><span class="o">==</span><span class="mf">4.8</span><span class="o">.</span><span class="mi">2</span>
+    <span class="o">-</span> <span class="n">pandas</span><span class="o">==</span><span class="mf">1.0</span><span class="o">.</span><span class="mi">1</span>
+    <span class="o">-</span> <span class="n">numpy</span><span class="o">==</span><span class="mf">1.18</span><span class="o">.</span><span class="mi">1</span>
+    <span class="o">-</span> <span class="n">slack</span><span class="o">==</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">2</span>
+    <span class="o">-</span> <span class="n">slackclient</span><span class="o">==</span><span class="mf">2.5</span><span class="o">.</span><span class="mi">0</span>
+    <span class="o">-</span> <span class="n">slackeventsapi</span><span class="o">==</span><span class="mf">2.1</span><span class="o">.</span><span class="mi">0</span>
+    <span class="o">-</span> <span class="n">websocket</span><span class="o">-</span><span class="n">client</span><span class="o">==</span><span class="mf">0.57</span><span class="o">.</span><span class="mi">0</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="run.sh">run.sh<a class="anchor-link" href="#run.sh">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><p>For our log messages to be printed out in the interactive terminal, we will need to create a softlink <code>/var/log/cron.log</code> to <code>/proc/1/fd/1</code>. This will allow standard output and error streams that are passed to the softlink <code>/var/log/cron.log</code> and be directed to <code>/proc/1/fd/1</code> which can then be viewed in the interactive terminal.</p>
+<p><code>ln -sf /proc/1/fd/1 /var/log/cron.log</code></p>
+</li>
+<li><p>As we would like the app to send us updates on a periodic basis, we will have to tell the server to run our code repeatedly. To do this, we can use the Cron service which is available on our server by listing down the things we need the Cron service to work on in the <code>/etc/crontab file</code>. The "<em>"s denote the schedule that the code will run at. As an example, "0 1 </em> <em> </em>" will mean that the code will run every day at 1am. Currently I have chosen to schedule the script to run every 5 minutes for testing "5 <em> </em> <em> </em>". The picture below illustrates what each "*" represents.</p>
+<p><code>echo '5 * * * * root cd / &amp;&amp; /opt/conda/envs/stock_screener/bin/python ./app.py &gt;&gt; /var/log/cron.log' &gt; /etc/crontab</code></p>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/fastpages/images/copied_from_nb/my_icons/smartie/slack_crontab_layout.JPG" alt="" /></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="n">printenv</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">default</span><span class="o">/</span><span class="n">locale</span>
+<span class="n">service</span> <span class="n">cron</span> <span class="n">start</span>
+<span class="n">echo</span> <span class="s1">&#39;Smartie is ready for action!&#39;</span>
+<span class="n">ln</span> <span class="o">-</span><span class="n">sf</span> <span class="o">/</span><span class="n">proc</span><span class="o">/</span><span class="mi">1</span><span class="o">/</span><span class="n">fd</span><span class="o">/</span><span class="mi">1</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">log</span><span class="o">/</span><span class="n">cron</span><span class="o">.</span><span class="n">log</span>
+<span class="n">echo</span> <span class="s1">&#39;5 * * * * root cd / &amp;&amp; /opt/conda/envs/stock_screener/bin/python ./app.py &gt;&gt; /var/log/cron.log&#39;</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">crontab</span>
+<span class="n">tail</span> <span class="o">-</span><span class="n">f</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">log</span><span class="o">/</span><span class="n">cron</span><span class="o">.</span><span class="n">log</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="env.list-(you-will-need-to-create-this)">env.list (you will need to create this)<a class="anchor-link" href="#env.list-(you-will-need-to-create-this)">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Remember the credentials that we painstakingly created and saved in <em>credentials.py</em>? You will need to create a env.list file and copy all your credential over. Just that this time, the double quotes "" can be omitted from the env.list file. You can then save the file anywhere on your local computer but remember the path that you saved it under.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># You should have something similar in env.list</span>
+
+<span class="n">SLACK_API_TOKEN</span><span class="o">=</span><span class="n">xoxp</span><span class="o">-</span><span class="mi">945736515923</span><span class="o">-</span><span class="mf">959414305302.</span><span class="o">...</span>
+<span class="n">CHANNEL_ID</span><span class="o">=</span><span class="n">CU</span><span class="o">...</span>
+<span class="n">SLACK_BOT_TOKEN</span><span class="o">=</span><span class="n">xoxb</span><span class="o">-</span><span class="mi">945736515923</span><span class="o">-</span><span class="mf">957048941172.</span><span class="o">....</span>
+<span class="n">SLACK_SIGNING_SECRET</span><span class="o">=</span><span class="mi">88</span><span class="n">a3424d</span><span class="o">.....</span>
+<span class="n">ALPHA_VANTAGE_KEY</span><span class="o">=</span><span class="n">E1UR</span><span class="o">....</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Creating-the-docker-image-on-docker-hub">Creating the docker image on docker hub<a class="anchor-link" href="#Creating-the-docker-image-on-docker-hub">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>First let's build the Docker image from the Dockerfile. You will need to run the following code on your terminal, in the same directory as the Dockerfile. Replace <strong>"kennethwang92"</strong> with your Docker ID.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">docker</span> <span class="n">build</span> <span class="o">-</span><span class="n">t</span> <span class="n">kennethwang92</span><span class="o">/</span><span class="n">stock_screener</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/fastpages/images/copied_from_nb/my_icons/smartie/docker_build.JPG" alt="" /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>After building, you can tag it with a name eg. <code>latest</code> and push the image to docker hub. Replace <strong>0e5574283393</strong> with your <strong>image ID</strong>. By default your image would have been tagged with "latest", you can substitute it with another label if you prefer. In this example, let's label the image as "demo"</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">docker</span> <span class="n">tag</span> <span class="mf">0e5574283393</span> <span class="n">kennethwang92</span><span class="o">/</span><span class="n">stock_screener</span><span class="p">:</span><span class="n">demo</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Login to docker hub</strong> on your terminal. Key in your username and password when prompted.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">docker</span> <span class="n">login</span> <span class="n">docker</span><span class="o">.</span><span class="n">io</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Push the image</strong> to docker hub.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">docker</span> <span class="n">push</span> <span class="n">kennethwang92</span><span class="o">/</span><span class="n">stock_screener</span><span class="p">:</span><span class="n">demo</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/fastpages/images/copied_from_nb/my_icons/smartie/docker_image_push.JPG" alt="" /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Deploying-on-a-Digital-Ocean-Server-(droplet)">Deploying on a Digital Ocean Server (droplet)<a class="anchor-link" href="#Deploying-on-a-Digital-Ocean-Server-(droplet)">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now that we have pushed the image to Docker hub, we can create a server using Digital Ocean for us to deploy the container. Below is a step-by-step guide on how to create a server (Digital Ocean calls it a droplet).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Creating-a-server">Creating a server<a class="anchor-link" href="#Creating-a-server">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Set up an account with Digital Ocean <a href="https://www.digitalocean.com/">here</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/fastpages/images/copied_from_nb/my_icons/smartie/digital_ocean_signup.JPG" alt="" /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Create a project</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/fastpages/images/copied_from_nb/my_icons/smartie/digital_ocean_create_project.JPG" alt="" /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Create a droplet</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/fastpages/images/copied_from_nb/my_icons/smartie/digital_ocean_create_droplet.JPG" alt="" /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Select ubuntu</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/fastpages/images/copied_from_nb/my_icons/smartie/digital_ocean_droplet_ubuntu.JPG" alt="" /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Choose a plan</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/fastpages/images/copied_from_nb/my_icons/smartie/digital_ocean_droplet_choose_plan.JPG" alt="" /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Select a datacenter</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/fastpages/images/copied_from_nb/my_icons/smartie/digital_ocean_choose_datacenter.JPG" alt="" /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Create ssh. Click on <strong>"New SSH Key"</strong> and follow the instructions</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/fastpages/images/copied_from_nb/my_icons/smartie/digital_ocean_droplet_ssh.JPG" alt="" /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/fastpages/images/copied_from_nb/my_icons/smartie/digital_ocean_create_ssh_key.JPG" alt="" /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Click on create droplet</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/fastpages/images/copied_from_nb/my_icons/smartie/digital_ocean_create_droplet_submit.JPG" alt="" /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Select droplet</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/fastpages/images/copied_from_nb/my_icons/smartie/digital_ocean_click_droplet.JPG" alt="" /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Save the IP address as you will have to use it in a moment.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/fastpages/images/copied_from_nb/my_icons/smartie/digital_ocean_get_ip_spare.JPG" alt="" /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Connecting-to-the-server-and-building-the-docker-container">Connecting to the server and building the docker container<a class="anchor-link" href="#Connecting-to-the-server-and-building-the-docker-container">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>First let's copy the env.list file that you saved in your local computer into the server. In this case, I have saved it in my Desktop.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># copy the env.list file from your local computer into the server</span>
+
+<span class="n">scp</span> <span class="o">-</span><span class="n">r</span> <span class="o">-</span><span class="n">i</span> <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_rsa</span> <span class="o">./</span><span class="n">env</span><span class="o">.</span><span class="n">list</span> <span class="n">root</span><span class="o">@</span><span class="p">[</span><span class="n">ip</span> <span class="n">address</span><span class="p">]:</span><span class="o">~</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/fastpages/images/copied_from_nb/my_icons/smartie/server_copied_envlist.JPG" alt="" /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To connect to the server, you will have to insert the ip address you have copied previously. Type "yes" if you are prompted "Are you sure you want to continue connecting"</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ssh</span> <span class="o">-</span><span class="n">i</span> <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_rsa</span> <span class="n">root</span><span class="o">@</span><span class="p">[</span><span class="n">ip</span> <span class="n">address</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/fastpages/images/copied_from_nb/my_icons/smartie/server_ssh_success.JPG" alt="" /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>While in the server, type the following commands</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># to update apt-get command-line tool for handling packages</span>
+
+<span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># install docker</span>
+
+<span class="n">apt</span> <span class="n">install</span> <span class="n">docker</span><span class="o">.</span><span class="n">io</span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># download image from Docker Hub</span>
+
+<span class="n">docker</span> <span class="n">pull</span> <span class="n">kennethwang92</span><span class="o">/</span><span class="n">stock_screener</span><span class="p">:</span><span class="n">demo</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># run the image with our credentials in env.list to create our docker container.</span>
+<span class="c1"># replace ~Desktop/env.list with the path leading to your env.list file.</span>
+<span class="c1"># for my case I have saved the file on my desktop.</span>
+<span class="c1"># replace &quot;kennethwang92&quot; with your Docker ID if you would like to use your own</span>
+<span class="c1"># image.</span>
+<span class="c1"># ensure that you are running this code in the same directory as the env.list</span>
+<span class="c1"># file.</span>
+
+<span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">it</span> <span class="o">--</span><span class="n">env</span><span class="o">-</span><span class="n">file</span> <span class="o">./</span><span class="n">env</span><span class="o">.</span><span class="n">list</span> <span class="n">kennethwang92</span><span class="o">/</span><span class="n">stock_screener</span><span class="p">:</span><span class="n">demo</span> <span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">bash</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/fastpages/images/copied_from_nb/my_icons/smartie/server_build_container.JPG" alt="" /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And we're done! Check your Slack channel for the messages!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Future-improvements:">Future improvements:<a class="anchor-link" href="#Future-improvements:">&#182;</a></h1><p>Slack bots are really powerful and by connecting it with python, the possibilities are endless. These are some of the improvements I can think of at the moment:</p>
+<ul>
+<li>Instead of using  RSI,you can substitute the indicator with others that you are interested in.
+*You can even execute trades through the bot if your broker has an API that you can connect to.</li>
+<li>Send .png/.jpeg graphs instead of texts?</li>
+</ul>
+<p><br /></p>
+<p>I hope that you liked this article and you find the Slack bot useful. If you have any questions/comments please feel free to reach out to me through <a href="https://www.linkedin.com/in/kennethwangtm/">Linkedin</a> or email at ken.wangtm@gmail.com</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+  </div><a class="u-url" href="/fastpages/2020/03/03/_03_01_Smartie_Slackbot.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/fastpages/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">fastpages</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">fastpages</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list">
+  <li><a href="https://github.com/kenneth-wang"><svg class="social svg-icon"><use xlink:href="/fastpages/assets/minima-social-icons.svg#github"></use></svg> <span class="username">kenneth-wang</span></a></li><li><a href="https://www.twitter.com/kenneth_wangg"><svg class="social svg-icon"><use xlink:href="/fastpages/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">kenneth_wangg</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
