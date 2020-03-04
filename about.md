@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Kenneth Wang
+title: About me
 permalink: /about/
 ---
 
