@@ -7,15 +7,15 @@
 <meta name="generator" content="Jekyll v3.8.5" />
 <meta property="og:title" content="Smartie - Your personalized stock watchlist" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Let’s create your slack bot that works for you!" />
-<meta property="og:description" content="Let’s create your slack bot that works for you!" />
+<meta name="description" content="Let’s create a slack bot that works for you!" />
+<meta property="og:description" content="Let’s create a slack bot that works for you!" />
 <link rel="canonical" href="https://kenneth-wang.github.io/fastpages/2020/03/03/_03_01_Smartie_Slackbot.html" />
 <meta property="og:url" content="https://kenneth-wang.github.io/fastpages/2020/03/03/_03_01_Smartie_Slackbot.html" />
 <meta property="og:site_name" content="Kenneth Wang" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-03-03T00:00:00-06:00" />
 <script type="application/ld+json">
-{"description":"Let’s create your slack bot that works for you!","@type":"BlogPosting","headline":"Smartie - Your personalized stock watchlist","dateModified":"2020-03-03T00:00:00-06:00","datePublished":"2020-03-03T00:00:00-06:00","url":"https://kenneth-wang.github.io/fastpages/2020/03/03/_03_01_Smartie_Slackbot.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://kenneth-wang.github.io/fastpages/2020/03/03/_03_01_Smartie_Slackbot.html"},"@context":"https://schema.org"}</script>
+{"description":"Let’s create a slack bot that works for you!","@type":"BlogPosting","headline":"Smartie - Your personalized stock watchlist","dateModified":"2020-03-03T00:00:00-06:00","datePublished":"2020-03-03T00:00:00-06:00","url":"https://kenneth-wang.github.io/fastpages/2020/03/03/_03_01_Smartie_Slackbot.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://kenneth-wang.github.io/fastpages/2020/03/03/_03_01_Smartie_Slackbot.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
   <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
@@ -74,7 +74,7 @@
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Smartie - Your personalized stock watchlist</h1><p class="page-description">Let&#39;s create your slack bot that works for you!</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-03-03T00:00:00-06:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">Smartie - Your personalized stock watchlist</h1><p class="page-description">Let&#39;s create a slack bot that works for you!</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-03-03T00:00:00-06:00" itemprop="datePublished">
         Mar 3, 2020
       </time>
        • <span class="read-time" title="Estimated read time">
@@ -120,14 +120,14 @@
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>There is an abundance of websites/news app that are offering stock watchlists for users to get timely updates. However it may be difficult for us to find one that is customizable and able to offers data apart from price movements. By the end of this post, I hope you can create your own Slack bot that gives you personalized information based on your own needs. We will be working through the steps together to create a bot that sends you a list of <strong>S&amp;P500 stocks</strong> and their <strong>Relative Strength Index</strong> (RSI) on a periodic basis. You can always amend the code if you are interested in other stock information.</p>
+<p>There is an abundance of websites/news app that are offering stock watchlists for users to get timely updates. However it may be difficult for us to find one that is customizable and able to offer information apart from price movements. By the end of this post, I hope you can create your own Slack bot that gives you personalized information based on your needs. We will be working through the steps together to create a bot that sends you a list of <strong>S&amp;P500 stocks</strong> and their <strong>Relative Strength Index</strong> (RSI) on a periodic basis. You can always amend the code if you are interested in other stock information.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In terms of deployment, the app with all of its dependencies will be packaged into a <strong>docker image</strong> and be pushed to <strong>Docker Hub</strong>, a service provided by Docker to share container images. 
+<p>In terms of deployment, the app with all of its dependencies will be packaged into a <strong>docker image</strong> and be pushed to <strong>Docker Hub</strong>, a service provided by Docker to share docker images. 
 With the docker image, we will build a <strong>docker container</strong> that includes everything we need to run the app on a server. For this example, I will be using <strong>Digital Ocean</strong> to host the app. Ok let's get started!</p>
 
 </div>
@@ -241,7 +241,7 @@ With the docker image, we will build a <strong>docker container</strong> that in
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
-<li><strong><a href="">Slack Bot Token</a></strong>: Credentials required to use the bot associated with your channel</li>
+<li><strong><a href="https://api.slack.com/apps">Slack Bot Token</a></strong>: Credentials required to use the bot associated with your channel. This can be accessed via the Slack API App webpage.</li>
 </ul>
 
 </div>
@@ -257,7 +257,7 @@ With the docker image, we will build a <strong>docker container</strong> that in
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
-<li><strong>Slack Signing Secret</strong>: A unique string that Slack shares with us. When sending a request, the signing secret is combined with the body using a HMAC-SHA256 keyed hash. The resulting signature is unique and is used by Slack to verify that the request is actually sent by you. This can be found under "Basic Information" on the side bar of the Slack API webpage</li>
+<li><strong>Slack Signing Secret</strong>: A unique string that Slack shares with us. When sending a request, the signing secret is combined with the body using a HMAC-SHA256 keyed hash. The resulting signature is unique and is used by Slack to verify that the request is actually sent by you. This can be found under "Basic Information" on the side bar of the Slack API webpage.</li>
 </ul>
 
 </div>
@@ -277,6 +277,13 @@ With the docker image, we will build a <strong>docker container</strong> that in
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Once you have the credentials, add it into your <strong>credentials.py</strong> file. Refer to below for an example.</p>
+
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -284,9 +291,7 @@ With the docker image, we will build a <strong>docker container</strong> that in
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># You should have something similar in credential.py</span>
-
-<span class="n">SLACK_API_TOKEN</span><span class="o">=</span><span class="s2">&quot;xoxp-945736515923-959414305302....&quot;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">SLACK_API_TOKEN</span><span class="o">=</span><span class="s2">&quot;xoxp-945736515923-959414305302....&quot;</span>
 <span class="n">CHANNEL_ID</span><span class="o">=</span><span class="s2">&quot;CU...&quot;</span>
 <span class="n">SLACK_BOT_TOKEN</span><span class="o">=</span><span class="s2">&quot;xoxb-945736515923-957048941172.....&quot;</span>
 <span class="n">SLACK_SIGNING_SECRET</span><span class="o">=</span><span class="s2">&quot;88a3424d.....&quot;</span>
@@ -618,7 +623,7 @@ Enter your authorization code:
 </li>
 <li><p>To convert the RSI readings into strings that can be read as texts on the Slack app <code>get_rsi_string</code>.</p>
 </li>
-<li><p>To package the strings above in Slack compatible blocks and send them to our Slack channel with the relevant meta information <code>get_message_payload_stock</code>, <code>get_message_payload</code>.</p>
+<li><p>To package the strings above into Slack compatible blocks and send them to our Slack channel with the relevant meta information <code>get_message_payload_stock</code>, <code>get_message_payload</code>.</p>
 </li>
 </ul>
 <p>Fret not, if the class looks overwhelming! We will go through each of the methods so that you are able amend this class for your own use case.</p>
@@ -818,13 +823,13 @@ Enter your authorization code:
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Retrieving-the-RSI-readings---Overbought-or-Oversold?">Retrieving the RSI readings - Overbought or Oversold?<a class="anchor-link" href="#Retrieving-the-RSI-readings---Overbought-or-Oversold?">&#182;</a></h3>
+<h3 id="Retrieving-the-RSI-readings---overbought-or-oversold?">Retrieving the RSI readings - overbought or oversold?<a class="anchor-link" href="#Retrieving-the-RSI-readings---overbought-or-oversold?">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>RSI was developed as a momentum oscillator that measures the speed and change of price movements. The index mainly oscillator between 0 to 100 and a stock is considered as <strong>overbought when it is above 70 and oversold when below 30</strong>. This is a relatively simple indicator and you can always substitute RSI for other indicators.</p>
+<p>RSI was developed as a momentum oscillator that measures the speed and change of price movements. The index mainly oscillates between 0 to 100 and a stock is considered as <strong>overbought when it is above 70 and oversold when below 30</strong>. This is a relatively simple indicator and you can always substitute RSI for other indicators.</p>
 <p>Our aim with <code>get_stocks_rsi</code> is to retrieve a dataframe with stock names, their RSI readings and whether they are within the overbought (&gt;70), oversold (&lt;30), normal ranges.</p>
 <p>I have illustrated the output of this function using <strong>10 stocks</strong> selected from a pool of companies.</p>
 
@@ -1051,7 +1056,7 @@ Enter your authorization code:
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Let's breakdown the <code>get_stocks_rsi</code>. First we retrieve a dataframe of the S&amp;P500 component stocks. Thankfully we have already saved it in a csv file earlier and all we need to do is to read the file.</p>
+<p>Let's breakdown <code>get_stocks_rsi</code>. First we retrieve a dataframe of the S&amp;P500 component stocks. Thankfully we have already saved it in a csv file earlier and all we need to do is to read the file.</p>
 
 </div>
 </div>
@@ -2790,7 +2795,7 @@ Enter your authorization code:
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>First let's copy the <strong>env.list</strong> file that you saved in your local computer into the server. You will have to amend <code>~/.ssh/id_rsa</code> and <code>./env.list</code> depending on where you have saved your ssh keys and env.list file. Insert the <code>[ip address]</code> that you have saved in the earlier section.</p>
+<p>First let's copy the <strong>env.list</strong> file that you saved in your local computer into the server. You will have to amend <code>~/.ssh/id_rsa</code> and <code>./env.list</code> depending on where you have saved your <strong>ssh keys</strong> and <strong>env.list</strong> file. Insert the <code>[ip address]</code> that you have saved in the earlier section.</p>
 
 </div>
 </div>
@@ -2891,7 +2896,7 @@ Enter your authorization code:
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Run the image with our credentials in <strong>env.list</strong> to create our docker container. Replace <code>./env.list</code> with the path leading to your env.list file. For my case I have saved the file on my desktop.
-Replace <strong>"kennethwang92"</strong> with your <strong>Docker ID</strong> if you would like to use your own image. Ensure that you are running this code in the same directory as the env.list file.</p>
+Replace <strong>"kennethwang92"</strong> with your <strong>Docker ID</strong> if you would like to use your own image. Ensure that you are running this code in the same directory as the <strong>env.list</strong> file.</p>
 
 </div>
 </div>
@@ -2920,7 +2925,7 @@ Replace <strong>"kennethwang92"</strong> with your <strong>Docker ID</strong> if
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Future-improvements:">Future improvements:<a class="anchor-link" href="#Future-improvements:">&#182;</a></h1><p>Slack bots are really powerful and when used with python, the possibilities are endless. These are some of the improvements I can think of at the moment:</p>
+<h1 id="Future-improvements:">Future improvements:<a class="anchor-link" href="#Future-improvements:">&#182;</a></h1><p>Slack bots are really powerful and when used with python, the possibilities are endless. Here are some improvements I can think of:</p>
 <ul>
 <li><p>Instead of using  RSI, you can use other indicators that you are interested in.</p>
 </li>
