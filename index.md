@@ -9,7 +9,7 @@ search: exclude
 
 ![](images/mountain_grey_cropped_resized.jpg)
 
-Credits to [fastpages](https://github.com/fastai/fastpage), for creating such a wonderful blogging platform!
+Empowering others through my AI/ML learnings
 
 
-# Posts
+# KENNETH'S BLOG POSTS
