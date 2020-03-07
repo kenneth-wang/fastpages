@@ -7,7 +7,7 @@ var documents = [{
     }, {
     "id": 1,
     "url": "https://kenneth-wang.github.io/about/",
-    "title": "",
+    "title": "About me",
     "body": " AI Engineer (Apprentice) @ AI Singapore. Aspiring AI/ML Engineer Looking forward to empower others through my AI/ML learnings! "
     }, {
     "id": 2,
