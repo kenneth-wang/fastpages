@@ -7,7 +7,7 @@ search: exclude
 ---
 
 
-![](images/mountain_grey_cropped_resized.jpg)
+![](images/manhattan.JPG)
 
 Empowering others through my AI/ML learnings
 
