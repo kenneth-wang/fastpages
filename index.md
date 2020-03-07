@@ -9,7 +9,6 @@ search: exclude
 
 ![](images/manhattan.JPG)
 
-Empowering others through my AI/ML learnings
 
 
-# Blogs
+# Blog Posts
