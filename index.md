@@ -12,4 +12,4 @@ search: exclude
 Empowering others through my AI/ML learnings
 
 
-# KENNETH'S BLOG POSTS
+# Blogs
