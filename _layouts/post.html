@@ -6,7 +6,7 @@ layout: default
   <header class="post-header">
 
     {%- if page.description -%}
-    {%- if page.title == "Mapping the world" -%}
+    {%- if page.title -%}
     <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
     {%- endif -%}
     <p class="page-description">{{ page.description | escape }}</p>
