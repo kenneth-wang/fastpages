@@ -4,7 +4,7 @@ layout: default
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    
+
     {%- if page.description -%}
     <p class="page-description">{{ page.description | escape }}</p>
     {%- endif -%}
@@ -16,7 +16,6 @@ layout: default
             {%- if forloop.last == false %}, {% endif -%}
         {% endfor %}
       {%- endif %}
-       • {% include reading_time.html -%}
     </p>
 
     {% if page.categories.size > 0 and site.show_tags %}
