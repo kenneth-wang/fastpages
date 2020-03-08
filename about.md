@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: post_no_title
 title: About me
 permalink: /about/
 ---
@@ -9,4 +9,4 @@ permalink: /about/
 
 AI Engineer (Apprentice) @ AI Singapore. Aspiring AI/ML Engineer 
 
-Looking forward to connecting with like-minded individuals and learn something new every day! 
+Looking forward to empower others through my AI/ML learnings!
