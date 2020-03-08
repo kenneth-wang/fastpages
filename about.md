@@ -9,6 +9,10 @@ permalink: /about/
 
 AI Engineer (Apprentice) @ AI Singapore | Aspiring AI/ML Engineer 
 
-I always had an unexplained interest towards coding. Back in my early career days, I was trying to automate everyday workflows while using Excel VBA to free up my time. I was one of the beneficiaries of my own code, and I wanted to do more. Gradually, I moved on to MOOCs to broaden my skillsets and Andrew Ng was my companion for the weekends. And I can still remember clearly, the first time I printed "Hello World" with Python on my computer.
+Hi! I’m Kenneth. I’ve always had an unexplained interest for coding which goes all the way back to my undergraduate days where I was just exploring coding for fun. In my earlier career days, I tried to automate my team’s everyday workflows using Excel VBA to free up more time. Given the multiple benefits I’ve gained from the codes, I set my heart on pursuing more.
 
-My journey towards a career in Data Science has just started and I am more inspired than ever to solve everyday propblems that matter with modern technology. Coming from a non-technical background, I know first hand that picking up coding can be tough. Hopefully through this blog and my AI/ML learnings, I can empower others to do the same. Feel free to reach out, I'm always looking forward to connect with like-minded individuals and learn something new every day!
+Gradually, I moved on to MOOCs to broaden my skillsets and Andrew Ng was my best friend for the weekends and I can still clearly remember the very first time I printed “Hello World” with Python on my computer.
+
+Today, I’m happy to embark on this journey in my career in Data Science! I am more inspired than ever to solve daily problems with modern technology. Coming from a non-technical background, I know first-hand exactly how tough it is to pick up coding and it is with this understanding that I started blogging. I hope to empower others to pick up the same through this blog and by sharing my AI/ML learnings. 
+Feel free to reach out! I always look forward to connect with like-minded individuals and learn something new every day. Cheers!
+
