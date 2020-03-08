@@ -126,7 +126,21 @@
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="About">About<a class="anchor-link" href="#About"> </a></h1><p>It feels like the stock market tend to move in tandem with the political headlines. Benjamin Graham, the father of value investing once quoted <strong>"In the short run, the market is a voting machine but in the long run, it is a weighting machine."</strong> I'm sure you have witnessed headlines such as <strong>"Dow ends down 2.4% on escalating US-China trade war"</strong> before. Being able to sift through the noise in the headlines could make the media an unexpected ally for investing. In response to demand for such forms of alternative data, <a href="https://www.bloomberg.com/professional/sentiment-analysis-white-papers/">Bloomberg</a> introduced a tool to generate sentiments from news and social media data. In this blog post, we'll walk through the steps to analyze text data and <strong>generate sentiments out of the relationships between countries by using ALBERT</strong>.</p>
+<p>It feels like the stock market tend to move in tandem with the political headlines. Benjamin Graham, the father of value investing once quoted <strong>"In the short run, the market is a voting machine but in the long run, it is a weighting machine."</strong> I'm sure you have witnessed headlines such as the following:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><em>Dow ends down 2.4% on escalating US-China trade war</em></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Being able to sift through the noise in the headlines could make the media an unexpected ally for investing. Unsurprisingly, in response to demand for such forms of alternative data, <a href="https://www.bloomberg.com/professional/sentiment-analysis-white-papers/">Bloomberg</a> introduced a tool to generate sentiments from news and social media data. In this blog post, we'll walk through the steps to analyze text data and <strong>generate sentiments out of the relationships between countries by using ALBERT</strong>.</p>
 
 </div>
 </div>
@@ -181,7 +195,7 @@ The authors implemented cross-layer parameter (feed-forward network parameters a
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
-<li><strong>making amendments to the Sentence Order Prediction training task</strong>. During the training phase, BERT receives two sentences each time and it needs to predict whether the second sentence in the pair, has been swapped with a sentence <strong>from another document</strong>. ALBERT implements a similar methodolgy, however it chooses instead to predict whether the order of two consecutive sentences <strong>in the same document</strong> have been swapped. The authors felt that the task of predicting the order of sentences is a more challenging pretraining task.</li>
+<li><strong>making amendments to the Sentence Order Prediction (SOP) training task</strong>. During the training phase, BERT receives two sentences each time and it needs to predict whether the second sentence in the pair, has been swapped with a sentence <strong>from another document</strong>. ALBERT implements a similar methodolgy, however it chooses instead to predict whether the order of two consecutive sentences <strong>in the same document</strong>, have been swapped. The authors felt that the task of predicting the order of sentences is a more challenging pretraining task.</li>
 </ul>
 
 </div>
@@ -411,11 +425,14 @@ Enter your authorization code:
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">website_url</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://en.wikipedia.org/wiki/List_of_alternative_country_names&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">website_url</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://en.wikipedia.org/wiki/List_of_alternative_country_names&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
 
 <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">website_url</span><span class="p">,</span><span class="s1">&#39;lxml&#39;</span><span class="p">)</span>
 <span class="n">tables</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;table&#39;</span><span class="p">,{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span><span class="s1">&#39;wikitable&#39;</span><span class="p">})</span>
@@ -439,7 +456,8 @@ Enter your authorization code:
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
@@ -453,11 +471,14 @@ Enter your authorization code:
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">countries_alt_names</span> <span class="o">=</span> <span class="p">[]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">countries_alt_names</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="c1"># Right column - Other name(s) or older name(s)</span>
 <span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="n">tables</span><span class="p">:</span>
@@ -476,7 +497,8 @@ Enter your authorization code:
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
@@ -496,11 +518,14 @@ Enter your authorization code:
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># First we group each country with their respective alternative names</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="c1"># First we group each country with their respective alternative names</span>
 <span class="n">countries_to_alt_names_raw</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span><span class="n">n</span> <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">countries</span><span class="p">,</span> <span class="n">countries_alt_names</span><span class="p">)}</span>
 
 <span class="c1"># Map each alternative name to the default country name</span>
@@ -518,7 +543,8 @@ Enter your authorization code:
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
@@ -532,11 +558,14 @@ Enter your authorization code:
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># remove empty strings</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="c1"># remove empty strings</span>
 <span class="n">alt_names_to_countries</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
 <span class="c1"># Add names</span>
@@ -547,13 +576,14 @@ Enter your authorization code:
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The <strong>mappings of standardized names with themselves</strong> are valid mappings as well. Let's add them in.</p>
+<p>The <strong>mappings of standardized names with themselves</strong> are valid mappings as well. We'll add them in.</p>
 
 </div>
 </div>
@@ -561,11 +591,14 @@ Enter your authorization code:
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">default_countries</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">alt_names_to_countries</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">default_countries</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">alt_names_to_countries</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
 
 <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">default_countries</span><span class="p">:</span>
   <span class="n">alt_names_to_countries</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">c</span><span class="p">:</span><span class="n">c</span><span class="p">})</span>
@@ -574,7 +607,8 @@ Enter your authorization code:
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
@@ -588,11 +622,14 @@ Enter your authorization code:
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">alt_names_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">alt_names_to_countries</span><span class="p">,</span> \
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">alt_names_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">alt_names_to_countries</span><span class="p">,</span> \
                                       <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 
 <span class="n">alt_names_df</span> <span class="o">=</span> <span class="n">alt_names_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="s1">&#39;Alternative_Name&#39;</span><span class="p">,</span> \
@@ -604,7 +641,8 @@ Enter your authorization code:
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -708,11 +746,14 @@ Enter your authorization code:
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_std_names</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">col_name</span><span class="p">,</span> <span class="n">alt_names_to_countries</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="k">def</span> <span class="nf">get_std_names</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">col_name</span><span class="p">,</span> <span class="n">alt_names_to_countries</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates a new column of standardized country names for a dataframe</span>
 <span class="sd">    </span>
@@ -756,7 +797,8 @@ Enter your authorization code:
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
@@ -770,11 +812,14 @@ Enter your authorization code:
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">countries_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./data/Wiki/countries.csv&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">countries_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./data/Wiki/countries.csv&#39;</span><span class="p">)</span>
 
 <span class="n">countries_df</span> <span class="o">=</span> <span class="n">get_std_names</span><span class="p">(</span><span class="n">countries_df</span><span class="p">,</span> <span class="s1">&#39;Country&#39;</span><span class="p">,</span> <span class="n">alt_names_to_countries</span><span class="p">)</span>
 <span class="n">countries_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
@@ -783,7 +828,8 @@ Enter your authorization code:
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -898,11 +944,14 @@ Enter your authorization code:
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">country_groups</span> <span class="o">=</span> <span class="p">[]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">country_groups</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="n">unique_countries</span> <span class="o">=</span> <span class="n">countries_df</span><span class="p">[</span><span class="s1">&#39;Country_Std&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 
@@ -928,7 +977,8 @@ Enter your authorization code:
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -984,43 +1034,47 @@ Enter your authorization code:
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># # Create empty dataframe</span>
-<span class="c1"># wiki_df = pd.DataFrame(columns = [&#39;Summary&#39;, &#39;URL&#39;, &#39;Country_Pair&#39;])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="c1"># Create empty dataframe</span>
+<span class="n">wiki_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Summary&#39;</span><span class="p">,</span> <span class="s1">&#39;URL&#39;</span><span class="p">,</span> <span class="s1">&#39;Country_Pair&#39;</span><span class="p">])</span>
 
 
-<span class="c1"># for c in unique_countries:</span>
-<span class="c1">#   # For each country, identify which country relations are </span>
-<span class="c1">#   # available on wikipedia</span>
-<span class="c1">#   avail_relations = str(c + &quot; relations&quot;)</span>
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">unique_countries</span><span class="p">:</span>
+  <span class="c1"># For each country, identify which country relations are </span>
+  <span class="c1"># available on wikipedia</span>
+  <span class="n">avail_relations</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">c</span> <span class="o">+</span> <span class="s2">&quot; relations&quot;</span><span class="p">)</span>
 
-<span class="c1">#   # For each available result</span>
-<span class="c1">#   for r in wikipedia.search(avail_relations):</span>
+  <span class="c1"># For each available result</span>
+  <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">wikipedia</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">avail_relations</span><span class="p">):</span>
 
-<span class="c1">#       # Filter out results are not related to the relations of countries</span>
-<span class="c1">#       if &quot;–&quot; in r and &quot;relations&quot; in r:</span>
-<span class="c1">#         try:</span>
-<span class="c1">#           # Retrieve the summary paragraph on the wikipage</span>
-<span class="c1">#           summary = wikipedia.summary(r)</span>
+      <span class="c1"># Filter out results are not related to the relations of countries</span>
+      <span class="k">if</span> <span class="s2">&quot;–&quot;</span> <span class="ow">in</span> <span class="n">r</span> <span class="ow">and</span> <span class="s2">&quot;relations&quot;</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+          <span class="c1"># Retrieve the summary paragraph on the wikipage</span>
+          <span class="n">summary</span> <span class="o">=</span> <span class="n">wikipedia</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
 
-<span class="c1">#           # Retrieve the url</span>
-<span class="c1">#           url = wikipedia.page(r).url</span>
+          <span class="c1"># Retrieve the url</span>
+          <span class="n">url</span> <span class="o">=</span> <span class="n">wikipedia</span><span class="o">.</span><span class="n">page</span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="o">.</span><span class="n">url</span>
 
-<span class="c1">#           wiki_df = wiki_df.append({&#39;Summary&#39;: summary, &#39;URL&#39;: url, \</span>
-<span class="c1">#                                     &#39;Country_Pair&#39;: r},ignore_index=True)</span>
-<span class="c1">#         except:</span>
-<span class="c1">#           pass</span>
+          <span class="n">wiki_df</span> <span class="o">=</span> <span class="n">wiki_df</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;Summary&#39;</span><span class="p">:</span> <span class="n">summary</span><span class="p">,</span> <span class="s1">&#39;URL&#39;</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span> \
+                                    <span class="s1">&#39;Country_Pair&#39;</span><span class="p">:</span> <span class="n">r</span><span class="p">},</span><span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+          <span class="k">pass</span>
 
-<span class="c1"># wiki_df.to_csv(&#39;./data/Wiki/wiki_relations.csv&#39;, index=False)</span>
+<span class="n">wiki_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./data/Wiki/wiki_relations.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
@@ -1034,11 +1088,14 @@ Enter your authorization code:
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">wiki_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./data/Wiki/wiki_relations.csv&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">wiki_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./data/Wiki/wiki_relations.csv&#39;</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">wiki_df</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="n">wiki_df</span><span class="p">[[</span><span class="s1">&#39;Summary&#39;</span><span class="p">,</span> <span class="s1">&#39;URL&#39;</span><span class="p">,</span> <span class="s1">&#39;Country_Pair&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
@@ -1047,7 +1104,8 @@ Enter your authorization code:
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -1170,18 +1228,22 @@ Enter your authorization code:
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">wiki_df</span> <span class="o">=</span> <span class="n">wiki_df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">&quot;EMPTY&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">wiki_df</span> <span class="o">=</span> <span class="n">wiki_df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">&quot;EMPTY&quot;</span><span class="p">)</span>
 <span class="n">wiki_df</span> <span class="o">=</span> <span class="n">wiki_df</span><span class="p">[</span><span class="n">wiki_df</span><span class="p">[</span><span class="s1">&#39;Summary&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;EMPTY&quot;</span><span class="p">]</span>
 </pre></div>
 
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
@@ -1195,11 +1257,14 @@ Enter your authorization code:
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">split_country_pair</span><span class="p">(</span><span class="n">wiki_country_pairs</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="k">def</span> <span class="nf">split_country_pair</span><span class="p">(</span><span class="n">wiki_country_pairs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Split country_pairs found via wikipedia (eg. &quot;Algebria-France relations&quot;)</span>
 <span class="sd">    </span>
@@ -1222,24 +1287,29 @@ Enter your authorization code:
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">wiki_df</span><span class="p">[</span><span class="s1">&#39;Country_A&#39;</span><span class="p">],</span> <span class="n">wiki_df</span><span class="p">[</span><span class="s1">&#39;Country_B&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">split_country_pair</span><span class="p">(</span><span class="n">wiki_df</span><span class="p">[</span><span class="s1">&#39;Country_Pair&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">wiki_df</span><span class="p">[</span><span class="s1">&#39;Country_A&#39;</span><span class="p">],</span> <span class="n">wiki_df</span><span class="p">[</span><span class="s1">&#39;Country_B&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">split_country_pair</span><span class="p">(</span><span class="n">wiki_df</span><span class="p">[</span><span class="s1">&#39;Country_Pair&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
 </pre></div>
 
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
@@ -1253,11 +1323,14 @@ Enter your authorization code:
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">wiki_df</span> <span class="o">=</span> <span class="n">get_std_names</span><span class="p">(</span><span class="n">wiki_df</span><span class="p">,</span> <span class="s1">&#39;Country_A&#39;</span><span class="p">,</span> <span class="n">alt_names_to_countries</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">wiki_df</span> <span class="o">=</span> <span class="n">get_std_names</span><span class="p">(</span><span class="n">wiki_df</span><span class="p">,</span> <span class="s1">&#39;Country_A&#39;</span><span class="p">,</span> <span class="n">alt_names_to_countries</span><span class="p">)</span>
 <span class="n">wiki_df</span> <span class="o">=</span> <span class="n">get_std_names</span><span class="p">(</span><span class="n">wiki_df</span><span class="p">,</span> <span class="s1">&#39;Country_B&#39;</span><span class="p">,</span> <span class="n">alt_names_to_countries</span><span class="p">)</span>
 
 <span class="n">wiki_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
@@ -1266,7 +1339,8 @@ Enter your authorization code:
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -1389,11 +1463,14 @@ Enter your authorization code:
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">wiki_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">wiki_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
 
 <span class="n">X_l</span><span class="p">,</span> <span class="n">X_ul</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 <span class="n">wiki_l_df</span> <span class="o">=</span> <span class="n">wiki_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">X_l</span><span class="p">]</span>
@@ -1403,7 +1480,8 @@ Enter your authorization code:
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
@@ -1415,7 +1493,7 @@ Enter your authorization code:
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Currently our training data exists in in the form of a paragraphs. We will can <strong>split the summary paragraphs into individual sentences</strong> before labeling them.</p>
+<p>Currently our training data exists in in the form of a paragraphs. We will <strong>split the summary paragraphs into individual sentences</strong> before labeling them.</p>
 
 </div>
 </div>
@@ -1423,11 +1501,14 @@ Enter your authorization code:
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">split_summaries</span><span class="p">(</span><span class="n">summaries</span><span class="p">,</span> <span class="n">country_As</span><span class="p">,</span> <span class="n">country_Bs</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="k">def</span> <span class="nf">split_summaries</span><span class="p">(</span><span class="n">summaries</span><span class="p">,</span> <span class="n">country_As</span><span class="p">,</span> <span class="n">country_Bs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Split wikipedia summaries of each country pair into individual sentences</span>
 <span class="sd">    </span>
@@ -1472,18 +1553,22 @@ Enter your authorization code:
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sent_l_df</span> <span class="o">=</span> <span class="n">split_summaries</span><span class="p">(</span><span class="n">wiki_l_df</span><span class="p">[</span><span class="s1">&#39;Summary&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">sent_l_df</span> <span class="o">=</span> <span class="n">split_summaries</span><span class="p">(</span><span class="n">wiki_l_df</span><span class="p">[</span><span class="s1">&#39;Summary&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
                             <span class="n">wiki_l_df</span><span class="p">[</span><span class="s1">&#39;Country_A&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
                             <span class="n">wiki_l_df</span><span class="p">[</span><span class="s1">&#39;Country_B&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
 
@@ -1495,24 +1580,29 @@ Enter your authorization code:
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sent_l_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">sent_l_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -1672,11 +1762,14 @@ Enter your authorization code:
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">regex_1</span> <span class="o">=</span> <span class="s1">&#39;^(The|&#39;&#39;)\s?[a-zA-Z\s]+(–|-|and)[a-zA-Z\s]+ relations refer[s]?&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">regex_1</span> <span class="o">=</span> <span class="s1">&#39;^(The|&#39;&#39;)\s?[a-zA-Z\s]+(–|-|and)[a-zA-Z\s]+ relations refer[s]?&#39;</span>
 
 <span class="n">regex_1_df</span> <span class="o">=</span> <span class="n">sent_ul_df</span><span class="p">[</span><span class="n">sent_ul_df</span><span class="p">[</span><span class="s1">&#39;Summary_Sentence&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">regex_1</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
 <span class="n">regex_1_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)[</span><span class="s1">&#39;Summary_Sentence&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
@@ -1685,7 +1778,8 @@ Enter your authorization code:
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -1721,11 +1815,14 @@ Enter your authorization code:
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">regex_2</span> <span class="o">=</span> <span class="s1">&#39;^(The|&#39;&#39;)\s?[a-zA-Z\s]+(–|-|and)[a-zA-Z\s]+ relations (are|is)&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">regex_2</span> <span class="o">=</span> <span class="s1">&#39;^(The|&#39;&#39;)\s?[a-zA-Z\s]+(–|-|and)[a-zA-Z\s]+ relations (are|is)&#39;</span>
 
 <span class="n">regex_2_df</span> <span class="o">=</span> <span class="n">sent_ul_df</span><span class="p">[</span><span class="n">sent_ul_df</span><span class="p">[</span><span class="s1">&#39;Summary_Sentence&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">regex_2</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
 <span class="n">regex_2_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)[</span><span class="s1">&#39;Summary_Sentence&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
@@ -1734,7 +1831,8 @@ Enter your authorization code:
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -1769,7 +1867,7 @@ Enter your authorization code:
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><code>remove_invalid_sents</code> will help us to remove all the different combinations that we have spotted so far.</p>
+<p><code>remove_invalid_sents</code> will help us to remove the different combinations that we have spotted so far.</p>
 
 </div>
 </div>
@@ -1777,11 +1875,14 @@ Enter your authorization code:
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">remove_invalid_sents</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="k">def</span> <span class="nf">remove_invalid_sents</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
 
     <span class="c1"># Remove empty sentences</span>
     <span class="n">df</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1800,25 +1901,30 @@ Enter your authorization code:
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sent_l_df</span> <span class="o">=</span> <span class="n">remove_invalid_sents</span><span class="p">(</span><span class="n">sent_l_df</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">sent_l_df</span> <span class="o">=</span> <span class="n">remove_invalid_sents</span><span class="p">(</span><span class="n">sent_l_df</span><span class="p">)</span>
 <span class="n">sent_ul_df</span> <span class="o">=</span> <span class="n">remove_invalid_sents</span><span class="p">(</span><span class="n">sent_ul_df</span><span class="p">)</span>
 </pre></div>
 
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -1847,18 +1953,22 @@ Enter your authorization code:
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">hoj</span> <span class="o">=</span> <span class="n">sent_l_df</span><span class="p">[</span><span class="n">sent_l_df</span><span class="p">[</span><span class="s1">&#39;Country_A&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;History of Japan&#39;</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">hoj</span> <span class="o">=</span> <span class="n">sent_l_df</span><span class="p">[</span><span class="n">sent_l_df</span><span class="p">[</span><span class="s1">&#39;Country_A&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;History of Japan&#39;</span><span class="p">]</span>
 <span class="n">hoj</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -1949,18 +2059,22 @@ Enter your authorization code:
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># sent_l_df.to_csv(&#39;./data/Wiki/sent_l.csv&#39;, index=False)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">sent_l_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./data/Wiki/sent_l.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">sent_ul_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./data/Wiki/sent_ul.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
@@ -1974,11 +2088,14 @@ Enter your authorization code:
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sent_ld_all_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./data/Wiki/sent_ld.csv&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">sent_ld_all_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./data/Wiki/sent_ld.csv&#39;</span><span class="p">)</span>
 
 <span class="n">sent_ld_all_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
@@ -1986,7 +2103,8 @@ Enter your authorization code:
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -2123,18 +2241,22 @@ Enter your authorization code:
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sent_ld_neutral_df</span> <span class="o">=</span> <span class="n">sent_ld_all_df</span><span class="p">[</span><span class="n">sent_ld_all_df</span><span class="p">[</span><span class="s1">&#39;Label&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">sent_ld_neutral_df</span> <span class="o">=</span> <span class="n">sent_ld_all_df</span><span class="p">[</span><span class="n">sent_ld_all_df</span><span class="p">[</span><span class="s1">&#39;Label&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">]</span>
 <span class="n">sent_ld_neutral_df</span><span class="p">[</span><span class="s1">&#39;Summary_Sentence&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
 </pre></div>
 
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -2161,17 +2283,21 @@ Enter your authorization code:
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sent_ld_df</span> <span class="o">=</span> <span class="n">sent_ld_all_df</span><span class="p">[</span><span class="n">sent_ld_all_df</span><span class="p">[</span><span class="s1">&#39;Label&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">sent_ld_df</span> <span class="o">=</span> <span class="n">sent_ld_all_df</span><span class="p">[</span><span class="n">sent_ld_all_df</span><span class="p">[</span><span class="s1">&#39;Label&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
@@ -2205,11 +2331,14 @@ Enter your authorization code:
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">country_pairs</span> <span class="o">=</span> <span class="n">sent_ld_df</span><span class="p">[</span><span class="s1">&#39;Country_Pair&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">country_pairs</span> <span class="o">=</span> <span class="n">sent_ld_df</span><span class="p">[</span><span class="s1">&#39;Country_Pair&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
 <span class="n">country_pairs_to_num</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">country_pairs</span><span class="p">)}</span>
 
 <span class="n">sent_ld_df</span><span class="p">[</span><span class="s1">&#39;Group&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sent_ld_df</span><span class="p">[</span><span class="s1">&#39;Country_Pair&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">country_pairs_to_num</span><span class="p">)</span>
@@ -2227,7 +2356,8 @@ Enter your authorization code:
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
@@ -2241,11 +2371,14 @@ Enter your authorization code:
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_data_df</span> <span class="o">=</span> <span class="n">sent_ld_df</span><span class="p">[[</span><span class="s1">&#39;Summary_Sentence&#39;</span><span class="p">,</span> <span class="s1">&#39;Label&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">train_data_df</span> <span class="o">=</span> <span class="n">sent_ld_df</span><span class="p">[[</span><span class="s1">&#39;Summary_Sentence&#39;</span><span class="p">,</span> <span class="s1">&#39;Label&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">]</span>
 <span class="n">dev_data_df</span> <span class="o">=</span> <span class="n">sent_ld_df</span><span class="p">[[</span><span class="s1">&#39;Summary_Sentence&#39;</span><span class="p">,</span> <span class="s1">&#39;Label&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">dev_idx</span><span class="p">]</span>
 
 <span class="n">train_data_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./data/Wiki/train.tsv&#39;</span><span class="p">,</span> <span class="n">float_format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%.0f</span><span class="s1">&#39;</span><span class="p">,</span> \
@@ -2258,7 +2391,8 @@ Enter your authorization code:
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
@@ -2275,11 +2409,14 @@ Enter your authorization code:
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">_create_examples</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">set_type</span><span class="p">,</span> <span class="n">col_num_text</span><span class="p">,</span> <span class="n">col_num_label</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="k">def</span> <span class="nf">_create_examples</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">set_type</span><span class="p">,</span> <span class="n">col_num_text</span><span class="p">,</span> <span class="n">col_num_label</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Helper function for Albert&#39;s preprocess_str method.</span>
 <span class="sd">    Create examples for the training and dev sets</span>
@@ -2312,18 +2449,22 @@ Enter your authorization code:
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">_convert_examples_to_features</span><span class="p">(</span><span class="n">examples</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">max_length</span><span class="p">,</span> <span class="n">task</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="k">def</span> <span class="nf">_convert_examples_to_features</span><span class="p">(</span><span class="n">examples</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">max_length</span><span class="p">,</span> <span class="n">task</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Helper function for Albert&#39;s preprocess_str method.</span>
 <span class="sd">    Convert data from examples to features</span>
@@ -2351,18 +2492,22 @@ Enter your authorization code:
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">_read_tsv</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="k">def</span> <span class="nf">_read_tsv</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Helper function for Albert&#39;s preprocess_str method.</span>
 <span class="sd">    Reads a tab separated value file.</span>
@@ -2382,18 +2527,22 @@ Enter your authorization code:
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">_create_dataset</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">buffer_size</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="k">def</span> <span class="nf">_create_dataset</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">buffer_size</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Helper function for Albert&#39;s preprocess_str method.</span>
 <span class="sd">    Convert features into ``tf.data.Dataset``.</span>
@@ -2442,18 +2591,22 @@ Enter your authorization code:
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">_plot_cost_history</span><span class="p">(</span><span class="n">history</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="k">def</span> <span class="nf">_plot_cost_history</span><span class="p">(</span><span class="n">history</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Helper function for Albert&#39;s fintune method.</span>
 <span class="sd">    Plots a line graph illustrating the loss for each epoch.</span>
@@ -2496,18 +2649,22 @@ Enter your authorization code:
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Albert</span><span class="p">:</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="k">class</span> <span class="nc">Albert</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -2657,7 +2814,8 @@ Enter your authorization code:
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
@@ -2676,14 +2834,14 @@ Enter your authorization code:
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Huggingface offers pretrained models that need to be finetuned with your own use case. At this point, the Huggingface ALBERT model is not capable of differentiating between positive and negative sentiments. For ALBERT to learn how to differentiate the two types of sentiment, we will need to first <strong>finetune <code>Albert</code> using SQUAD's SST-2 dataset</strong>. The SST-2 dataset contains sentences from <strong>movie reviews</strong> and human annotations of their sentiments. Here are two examples adapted from the dataset:</p>
+<p>Huggingface offers pretrained models that need to be finetuned for your own use case. At this point, the Huggingface ALBERT model is not capable of differentiating between positive and negative sentiments. For ALBERT to learn how to differentiate the two types of sentiment, we will need to first <strong>finetune <code>Albert</code> using SQUAD's SST-2 dataset</strong>. The SST-2 dataset contains sentences from <strong>movie reviews</strong> and human annotations of their sentiments. Here are two examples adapted from the dataset:</p>
 <ul>
 <li><p>Negative sentiment -  "contains no wit , only labored gags"</p>
 </li>
 <li><p>Positive sentiment - "are more deeply thought through than in most right-thinking films"</p>
 </li>
 </ul>
-<p>Once, we have trained a model capable of differentiating negative and sentiments by analyzing movie reviews, we will <strong>implement transfer learning to further finetune the model with our own Wikipedia summary dataset</strong>.</p>
+<p>Once we have trained a model capable of differentiating negative and sentiments by analyzing movie reviews, we will <strong>implement transfer learning to further finetune the model with our own Wikipedia summary dataset</strong>.</p>
 
 </div>
 </div>
@@ -2698,11 +2856,14 @@ Enter your authorization code:
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">TASKS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;CoLA&quot;</span><span class="p">,</span> <span class="s2">&quot;SST&quot;</span><span class="p">,</span> <span class="s2">&quot;MRPC&quot;</span><span class="p">,</span> <span class="s2">&quot;QQP&quot;</span><span class="p">,</span> <span class="s2">&quot;STS&quot;</span><span class="p">,</span> <span class="s2">&quot;MNLI&quot;</span><span class="p">,</span> <span class="s2">&quot;SNLI&quot;</span><span class="p">,</span> <span class="s2">&quot;QNLI&quot;</span><span class="p">,</span> <span class="s2">&quot;RTE&quot;</span><span class="p">,</span> <span class="s2">&quot;WNLI&quot;</span><span class="p">,</span> <span class="s2">&quot;diagnostic&quot;</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">TASKS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;CoLA&quot;</span><span class="p">,</span> <span class="s2">&quot;SST&quot;</span><span class="p">,</span> <span class="s2">&quot;MRPC&quot;</span><span class="p">,</span> <span class="s2">&quot;QQP&quot;</span><span class="p">,</span> <span class="s2">&quot;STS&quot;</span><span class="p">,</span> <span class="s2">&quot;MNLI&quot;</span><span class="p">,</span> <span class="s2">&quot;SNLI&quot;</span><span class="p">,</span> <span class="s2">&quot;QNLI&quot;</span><span class="p">,</span> <span class="s2">&quot;RTE&quot;</span><span class="p">,</span> <span class="s2">&quot;WNLI&quot;</span><span class="p">,</span> <span class="s2">&quot;diagnostic&quot;</span><span class="p">]</span>
 <span class="n">TASK2PATH</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;CoLA&quot;</span><span class="p">:</span><span class="s1">&#39;https://firebasestorage.googleapis.com/v0/b/mtl-sentence-representations.appspot.com/o/data</span><span class="si">%2F</span><span class="s1">CoLA.zip?alt=media&amp;token=46d5e637-3411-4188-bc44-5809b5bfb5f4&#39;</span><span class="p">,</span>
              <span class="s2">&quot;SST&quot;</span><span class="p">:</span><span class="s1">&#39;https://firebasestorage.googleapis.com/v0/b/mtl-sentence-representations.appspot.com/o/data</span><span class="si">%2F</span><span class="s1">SST-2.zip?alt=media&amp;token=aabc5f6b-e466-44a2-b9b4-cf6337f84ac8&#39;</span><span class="p">,</span>
              <span class="s2">&quot;MRPC&quot;</span><span class="p">:</span><span class="s1">&#39;https://firebasestorage.googleapis.com/v0/b/mtl-sentence-representations.appspot.com/o/data</span><span class="si">%2F</span><span class="s1">mrpc_dev_ids.tsv?alt=media&amp;token=ec5c0836-31d5-48f4-b431-7480817f1adc&#39;</span><span class="p">,</span>
@@ -2742,7 +2903,8 @@ Enter your authorization code:
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -2763,7 +2925,7 @@ Enter your authorization code:
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The <strong>data files and hyperparameters</strong> needed to finetune <code>Albert</code> on the <strong>SQUAD SST-2 task and our wikipedia summaries are different</strong>. To easily facilitate the different training requirements, we will wrap the data paths and parameters in a <strong><code>config</code> dictionary</strong>. Which will be <strong>used to instantiate</strong> <code>Albert</code> before finetuning begins.</p>
+<p>The <strong>data files and hyperparameters</strong> needed to finetune <code>Albert</code> on the <strong>SQUAD SST-2 task and our Wikipedia summaries are different</strong>. To easily facilitate the different training requirements, we will wrap the data paths and parameters in a <strong><code>config</code> dictionary</strong>. Which will be <strong>used to instantiate</strong> <code>Albert</code> before finetuning begins.</p>
 <p>The config to finetune on SQUAD:</p>
 
 </div>
@@ -2772,11 +2934,14 @@ Enter your authorization code:
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">config_squad</span> <span class="o">=</span> <span class="p">{</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">config_squad</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;albert_config&quot;</span><span class="p">:</span> <span class="s2">&quot;albert-base-v2&quot;</span><span class="p">,</span>
     <span class="s2">&quot;task&quot;</span><span class="p">:</span> <span class="s2">&quot;sst-2&quot;</span><span class="p">,</span>
     <span class="s2">&quot;max_seq_length&quot;</span><span class="p">:</span> <span class="mi">128</span><span class="p">,</span>
@@ -2802,7 +2967,8 @@ Enter your authorization code:
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
@@ -2816,19 +2982,23 @@ Enter your authorization code:
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># albert_squad = Albert(**config_squad)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">albert_squad</span> <span class="o">=</span> <span class="n">Albert</span><span class="p">(</span><span class="o">**</span><span class="n">config_squad</span><span class="p">)</span>
 
-<span class="c1"># albert_squad.finetune()</span>
+<span class="n">albert_squad</span><span class="o">.</span><span class="n">finetune</span><span class="p">()</span>
 </pre></div>
 
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -3193,11 +3363,14 @@ ZmbWHJeXmZk1x+VlZmbN+QVb8pdEBH4fQgAAAABJRU5ErkJggg==
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">config_summaries</span> <span class="o">=</span> <span class="p">{</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">config_summaries</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;albert_config&quot;</span><span class="p">:</span> <span class="s2">&quot;albert-base-v2&quot;</span><span class="p">,</span>
     <span class="s2">&quot;task&quot;</span><span class="p">:</span> <span class="s2">&quot;sst-2&quot;</span><span class="p">,</span>
     <span class="s2">&quot;max_seq_length&quot;</span><span class="p">:</span> <span class="mi">128</span><span class="p">,</span>
@@ -3223,26 +3396,31 @@ ZmbWHJeXmZk1x+VlZmbN+QVb8pdEBH4fQgAAAABJRU5ErkJggg==
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># albert_summaries = Albert(**config_summaries)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">albert_summaries</span> <span class="o">=</span> <span class="n">Albert</span><span class="p">(</span><span class="o">**</span><span class="n">config_summaries</span><span class="p">)</span>
 
-<span class="c1"># albert_summaries.finetune()</span>
+<span class="n">albert_summaries</span><span class="o">.</span><span class="n">finetune</span><span class="p">()</span>
 </pre></div>
 
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -3700,7 +3878,7 @@ cZym4/8BXYIiDlC7PicAAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>With the model finetuned with our labeled dataset, we can now use it to come up with sentiment predictions. <strong>The sentences need to be encoded</strong> before feeding it into the model to obtain the logits <code>logit = albert_summaries.embed(encoded_s)[0]</code>. We will then place the logits through a <strong>softmax function</strong> <code>_get_proba</code> to obtain the probabilities that the sentiments are negative or positive.</p>
+<p>With the model finetuned with our labeled dataset, we can use it to come up with sentiment predictions. <strong>The sentences need to be encoded</strong> before feeding it into the model to obtain the logits <code>logit = albert_summaries.embed(encoded_s)[0]</code>. We will then place the logits through a <strong>softmax function</strong> <code>_get_proba</code> to obtain the probabilities that the sentiments are negative or positive.</p>
 
 </div>
 </div>
@@ -3708,11 +3886,14 @@ cZym4/8BXYIiDlC7PicAAAAASUVORK5CYII=
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">_get_proba</span><span class="p">(</span><span class="n">logit</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="k">def</span> <span class="nf">_get_proba</span><span class="p">(</span><span class="n">logit</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Helper function for get_predictions_probas</span>
 <span class="sd">    Computes softmax values based on logit</span>
@@ -3731,18 +3912,22 @@ cZym4/8BXYIiDlC7PicAAAAASUVORK5CYII=
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_predictions_probas</span><span class="p">(</span><span class="n">summaries</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">weights_path</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="k">def</span> <span class="nf">get_predictions_probas</span><span class="p">(</span><span class="n">summaries</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">weights_path</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the sentiment probabilities (positive or negative sentiments)</span>
 <span class="sd">    for the wiki summary sentences</span>
@@ -3782,18 +3967,22 @@ cZym4/8BXYIiDlC7PicAAAAASUVORK5CYII=
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%capture</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="o">%%capture</span>
 
 <span class="n">sent_ld_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./data/Wiki/sent_ld.csv&#39;</span><span class="p">)</span>
 <span class="n">sent_ul_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./data/Wiki/sent_ul.csv&#39;</span><span class="p">)</span>
@@ -3811,7 +4000,8 @@ cZym4/8BXYIiDlC7PicAAAAASUVORK5CYII=
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
@@ -3825,17 +4015,21 @@ cZym4/8BXYIiDlC7PicAAAAASUVORK5CYII=
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sent_all_df</span><span class="p">[[</span><span class="s1">&#39;Country_Pair&#39;</span><span class="p">,</span> <span class="s1">&#39;Label&#39;</span><span class="p">,</span> <span class="s1">&#39;Summary_Sentence&#39;</span><span class="p">,</span> <span class="s1">&#39;Predictions_Probas&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">sent_all_df</span><span class="p">[[</span><span class="s1">&#39;Country_Pair&#39;</span><span class="p">,</span> <span class="s1">&#39;Label&#39;</span><span class="p">,</span> <span class="s1">&#39;Summary_Sentence&#39;</span><span class="p">,</span> <span class="s1">&#39;Predictions_Probas&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -3945,11 +4139,14 @@ cZym4/8BXYIiDlC7PicAAAAASUVORK5CYII=
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Sentences</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="c1"># Sentences</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">sent_all_df</span><span class="p">[</span><span class="n">sent_all_df</span><span class="p">[</span><span class="s1">&#39;Country_Pair&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;China_Singapore&#39;</span><span class="p">][</span><span class="s1">&#39;Summary_Sentence&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
 
 <span class="c1"># Sentiment probabilities</span>
@@ -3959,7 +4156,8 @@ cZym4/8BXYIiDlC7PicAAAAASUVORK5CYII=
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -3996,11 +4194,14 @@ cZym4/8BXYIiDlC7PicAAAAASUVORK5CYII=
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Sentences</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="c1"># Sentences</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">sent_all_df</span><span class="p">[</span><span class="n">sent_all_df</span><span class="p">[</span><span class="s1">&#39;Country_Pair&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Russia_United States&#39;</span><span class="p">][</span><span class="s1">&#39;Summary_Sentence&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span>
 
 <span class="c1"># Sentiment probabilities</span>
@@ -4010,7 +4211,8 @@ cZym4/8BXYIiDlC7PicAAAAASUVORK5CYII=
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -4050,11 +4252,14 @@ cZym4/8BXYIiDlC7PicAAAAASUVORK5CYII=
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Sentences</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="c1"># Sentences</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">sent_all_df</span><span class="p">[</span><span class="n">sent_all_df</span><span class="p">[</span><span class="s1">&#39;Country_Pair&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;China_United States&#39;</span><span class="p">][</span><span class="s1">&#39;Summary_Sentence&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
 
 <span class="c1"># Sentiment probabilities</span>
@@ -4064,7 +4269,8 @@ cZym4/8BXYIiDlC7PicAAAAASUVORK5CYII=
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -4146,11 +4352,14 @@ cZym4/8BXYIiDlC7PicAAAAASUVORK5CYII=
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sent_all_swap_df</span> <span class="o">=</span> <span class="n">sent_all_df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">sent_all_swap_df</span> <span class="o">=</span> <span class="n">sent_all_df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">sent_all_swap_df</span><span class="p">[</span><span class="s1">&#39;Country_A&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sent_all_df</span><span class="p">[</span><span class="s1">&#39;Country_B&#39;</span><span class="p">]</span>
 <span class="n">sent_all_swap_df</span><span class="p">[</span><span class="s1">&#39;Country_B&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sent_all_df</span><span class="p">[</span><span class="s1">&#39;Country_A&#39;</span><span class="p">]</span>
 
@@ -4163,7 +4372,8 @@ cZym4/8BXYIiDlC7PicAAAAASUVORK5CYII=
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -4327,17 +4537,21 @@ cZym4/8BXYIiDlC7PicAAAAASUVORK5CYII=
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sent_all_stack_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Country_Pair&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()[</span><span class="s1">&#39;Predictions_Probas&#39;</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">sent_all_stack_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Country_Pair&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()[</span><span class="s1">&#39;Predictions_Probas&#39;</span><span class="p">]</span>
 </pre></div>
 
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -4386,11 +4600,14 @@ Name: Predictions_Probas, Length: 1171, dtype: float64</pre>
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">country_ISO_raw_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./data/Wiki/country_ISO.txt&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;  &quot;</span><span class="p">,</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">country_ISO_raw_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./data/Wiki/country_ISO.txt&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;  &quot;</span><span class="p">,</span>
                                  <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ISO_Code&#39;</span><span class="p">,</span> <span class="s1">&#39;Country&#39;</span><span class="p">])</span>
 
 <span class="n">country_ISO_df</span> <span class="o">=</span> <span class="n">get_std_names</span><span class="p">(</span><span class="n">country_ISO_raw_df</span><span class="p">,</span>
@@ -4402,7 +4619,8 @@ Name: Predictions_Probas, Length: 1171, dtype: float64</pre>
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -4526,18 +4744,22 @@ Name: Predictions_Probas, Length: 1171, dtype: float64</pre>
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">country_to_ISO</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span><span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">country_ISO_df</span><span class="p">[</span><span class="s1">&#39;Country_Std&#39;</span><span class="p">],</span> \
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">country_to_ISO</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span><span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">country_ISO_df</span><span class="p">[</span><span class="s1">&#39;Country_Std&#39;</span><span class="p">],</span> \
                                      <span class="n">country_ISO_df</span><span class="p">[</span><span class="s1">&#39;ISO_Code&#39;</span><span class="p">])}</span>
 </pre></div>
 
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
@@ -4551,11 +4773,14 @@ Name: Predictions_Probas, Length: 1171, dtype: float64</pre>
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_ISO</span><span class="p">(</span><span class="n">country</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="k">def</span> <span class="nf">get_ISO</span><span class="p">(</span><span class="n">country</span><span class="p">):</span>
   <span class="k">try</span><span class="p">:</span>
     <span class="n">ISO</span> <span class="o">=</span> <span class="n">country_to_ISO</span><span class="p">[</span><span class="n">country</span><span class="p">]</span>
   <span class="k">except</span><span class="p">:</span>
@@ -4567,18 +4792,22 @@ Name: Predictions_Probas, Length: 1171, dtype: float64</pre>
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sent_all_stack_df</span> <span class="o">=</span> <span class="n">get_std_names</span><span class="p">(</span><span class="n">sent_all_stack_df</span><span class="p">,</span> <span class="s1">&#39;Country_A&#39;</span><span class="p">,</span> \
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">sent_all_stack_df</span> <span class="o">=</span> <span class="n">get_std_names</span><span class="p">(</span><span class="n">sent_all_stack_df</span><span class="p">,</span> <span class="s1">&#39;Country_A&#39;</span><span class="p">,</span> \
                                   <span class="n">alt_names_to_countries</span><span class="p">)</span>
 
 <span class="n">sent_all_stack_df</span> <span class="o">=</span> <span class="n">get_std_names</span><span class="p">(</span><span class="n">sent_all_stack_df</span><span class="p">,</span> <span class="s1">&#39;Country_B&#39;</span><span class="p">,</span> \
@@ -4591,7 +4820,8 @@ Name: Predictions_Probas, Length: 1171, dtype: float64</pre>
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
@@ -4605,17 +4835,21 @@ Name: Predictions_Probas, Length: 1171, dtype: float64</pre>
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sent_all_stack_avail_df</span> <span class="o">=</span> <span class="n">sent_all_stack_df</span><span class="p">[</span><span class="n">sent_all_stack_df</span><span class="p">[</span><span class="s1">&#39;country_A_ISO&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;Not Available&#39;</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">sent_all_stack_avail_df</span> <span class="o">=</span> <span class="n">sent_all_stack_df</span><span class="p">[</span><span class="n">sent_all_stack_df</span><span class="p">[</span><span class="s1">&#39;country_A_ISO&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;Not Available&#39;</span><span class="p">]</span>
 </pre></div>
 
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
@@ -4642,17 +4876,21 @@ Name: Predictions_Probas, Length: 1171, dtype: float64</pre>
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">sent_all_stack_avail_df</span><span class="p">[</span><span class="s1">&#39;Country_A_Std&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">sent_all_stack_avail_df</span><span class="p">[</span><span class="s1">&#39;Country_A_Std&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
 </pre></div>
 
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -4719,18 +4957,22 @@ Name: Predictions_Probas, Length: 1171, dtype: float64</pre>
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">country</span> <span class="o">=</span> <span class="s2">&quot;united_states&quot;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+<span class="n">country</span> <span class="o">=</span> <span class="s2">&quot;united_states&quot;</span>
 <span class="n">sent_country_df</span> <span class="o">=</span> <span class="n">sent_all_stack_avail_df</span><span class="p">[</span><span class="n">sent_all_stack_avail_df</span><span class="p">[</span><span class="s1">&#39;Country_A_Std&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">country</span><span class="p">]</span>
 </pre></div>
 
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 </div>
     
 
@@ -4855,7 +5097,7 @@ if (outputEl) {{
 <ul>
 <li><p>As explained earlier, we need to be able to differentiate facts from commentaries.</p>
 </li>
-<li><p>A simple Googling of "United States - China" relations might not return us results that are all relevant. An added element of effort needs to be put in to clean the dataset.</p>
+<li><p>A simple Googling of "United States - China" relations might not return results that are all relevant. An added element of effort needs to be put in to clean the dataset.</p>
 </li>
 </ul>
 <p>Like any data scientist would do, a deeper analysis of the results can be conducted by analysing the precision/recall on the test dataset.</p>
