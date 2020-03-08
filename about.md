@@ -1,6 +1,6 @@
 ---
-layout: page_no_title
-title: My title
+layout: post_no_title
+title: About me
 permalink: /about/
 ---
 
